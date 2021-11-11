@@ -1,6 +1,6 @@
 version: "2.0"
 services:
-  miner:
+  web:
     image: kahilav1/twitter-dashboard-on-akash:0.0.1
     env:
       - TWITTER_KEY=<insert key>
@@ -14,7 +14,7 @@ services:
 
 profiles:
   compute:
-    miner:
+    web:
       resources:
         cpu:
           units: 1
@@ -23,19 +23,19 @@ profiles:
         storage:
           size: 1Gi
   placement:
-    miner:
+    westcoast:
       attributes:
         host: akash
       signedBy:
         anyOf:
           - "akash1365yvmc4s7awdyj3n2sav7xfx76adc6dnmlx63"
       pricing:
-        miner:
+        web:
           denom: uakt
           amount: 1000
 
 deployment:
-  miner:
-    miner:
-      profile: miner
+  web:
+    westcoast:
+      profile: web
       count: 1
