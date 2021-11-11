@@ -12,7 +12,7 @@ You will use `deploy.yaml` file in this repository for deployment. In `deploy.ya
 
 `TWITTER_IDS` is contains the twitter identifiers that you want display, as a string, Twitter identifiers separated with a space (without quotation marks). 
 
-`DATABASE_URL` is where Twitter Dashboard gets its initial data in the form of a sqlite database. The file needs to be hosted on the public internet at the time of deployment. The schema for the database can be seen in db-schema.sql.
+`DATABASE_URL` is where Twitter Dashboard gets its initial data in the form of a sqlite database. The file needs to be hosted on the public internet at the time of deployment. The schema for the database can be seen in `db-schema.sql`.
 
 Therefore, your deploy.yaml should look something like this:
 
