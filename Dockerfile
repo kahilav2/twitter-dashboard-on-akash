@@ -1,11 +1,10 @@
 FROM node:14.15.0
 
-LABEL author freeirc.cloud@gmail.chmod
+LABEL author freeirc.cloud@gmail.com
 
-ENV DATABASE_URL=<insert url>
-ENV TWITTER_KEY=<insert key>
+RUN git clone https://github.com/kahilav2/twitter-dashboard-on-akash.git /app
 
-COPY . /app
+## COPY . /app
 # Create app directory
 WORKDIR /app
 

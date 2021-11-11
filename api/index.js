@@ -39,16 +39,15 @@ app.get('/raw', (req, res) => {
 const LOOP_INTERVAL_SHORT = 1000 * 60 * 60;
 const LOOP_INTERVAL_LONG = 1000 * 60 * 60 * 24;
 const LOOP_SWITCH_COUNT = 24;
-const loopRunCount = 0;
-watchedScreenNames = [
+let loopRunCount = 0;
+const watchedScreenNames = [
   "elonmusk",
   "BarackObama",
 ];
 const TWITTER_KEY = process.env.TWITTER_KEY;
-console.log(TWITTER_KEY);
+
 const loop = async () => {
-  console.log("RETRIEVING");
-  for (screenName of watchedScreenNames) {
+  for (const screenName of watchedScreenNames) {
     console.log("GET:", screenName);
     try {
       const result = await axios.get(`https://api.twitter.com/1.1/users/show.json?screen_name=${screenName}`,
@@ -59,9 +58,9 @@ const loop = async () => {
         }
       );
       const row = db.prepare("INSERT INTO data_points(twitter_id, followers_count, date) VALUES (?,?,CURRENT_TIMESTAMP)");
-      row.run(screenName + "jee", result.data.followers_count);
+      row.run(screenName, result.data.followers_count);
     } catch(error) {
-      console.log("ERROR: ", error.message);
+      console.error("ERROR: ", error.message);
     }
     
   }
