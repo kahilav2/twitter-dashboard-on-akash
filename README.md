@@ -4,7 +4,7 @@ Twitter Dashboard on Akash displays, and keeps track of the follower counts of s
 
 ### How to deploy
 
-Twitter Dashboard on Akash can be deployed by following the [official deployment guide](https://docs.akash.network/cli/deployment#create-the-deployment-configuration)
+Twitter Dashboard on Akash can be deployed by following the [Akash' official deployment guide](https://docs.akash.network/cli/deployment#create-the-deployment-configuration)
 
 You will use `deploy.yaml` file in this repository for deployment. In `deploy.yaml`, you need to specify the `TWITTER_KEY`, `DATABASE_URL`, `TWITTER_IDS` environment variables. 
 
