@@ -5,6 +5,7 @@ services:
     env:
       - TWITTER_KEY=<insert key>
       - DATABASE_URL=<insert url>
+      - TWITTER_IDS=<insert ids>
     expose:
       - port: 3000
         as: 80
