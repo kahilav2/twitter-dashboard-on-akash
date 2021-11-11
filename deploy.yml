@@ -1,11 +1,11 @@
 version: "2.0"
 services:
   miner:
-    image: kahilav1/twitter-dashboard-on-akash:v0.0.1
+    image: kahilav1/twitter-dashboard-on-akash:0.0.1
     env:
       - TWITTER_KEY=<insert key>
       - DATABASE_URL=<insert url>
-      - TWITTER_IDS=<insert ids>
+      - TWITTER_IDS=<insert ids, e.g. "elonmusk realtrump">
     expose:
       - port: 3000
         as: 80
