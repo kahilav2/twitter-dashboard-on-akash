@@ -4,15 +4,15 @@ Twitter Dashboard on Akash displays, and keeps track of the follower counts of s
 
 ### How to deploy
 
-Twitter Dashboard on Akash can be deployed by following the [official deployment guide](https://docs.https://akash.network//cli/deployment#create-the-deployment-configuration)
+Twitter Dashboard on Akash can be deployed by following the [official deployment guide](https://docs.akash.network/cli/deployment#create-the-deployment-configuration)
 
-You will use deploy.yaml file in this repository for deployment. In deploy.yaml, you need to specify the TWITTER_KEY, DATABASE_URL, TWITTER_IDS environment variables. 
+You will use `deploy.yaml` file in this repository for deployment. In `deploy.yaml`, you need to specify the `TWITTER_KEY`, `DATABASE_URL`, `TWITTER_IDS` environment variables. 
 
-TWITTER_KEY is the authentication key of your Twitter developer account, which is needed to access the Twitter APIs. You can apply for a developer account here https://developer.twitter.com/. 
+`TWITTER_KEY` is the authentication key of your Twitter developer account, which is needed to access the Twitter APIs. You can apply for a developer account [here]( https://developer.twitter.com/). 
 
-TWITTER_IDS is contains the twitter identifiers that you want display, as a string, Twitter identifiers separated with a space (without quotation marks). 
+`TWITTER_IDS` is contains the twitter identifiers that you want display, as a string, Twitter identifiers separated with a space (without quotation marks). 
 
-DATABASE_URL is where Twitter Dashboard gets its initial data in the form of a sqlite database. The file needs to be hosted on the public internet at the time of deployment. The schema for the database can be seen in db-schema.sql.
+`DATABASE_URL` is where Twitter Dashboard gets its initial data in the form of a sqlite database. The file needs to be hosted on the public internet at the time of deployment. The schema for the database can be seen in db-schema.sql.
 
 Therefore, your deploy.yaml should look something like this:
 
