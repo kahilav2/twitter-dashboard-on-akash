@@ -36,9 +36,9 @@ app.get('/raw', (req, res) => {
     rows
   )
 })
-const LOOP_INTERVAL_SHORT = 1000 * 60 * 60;
+const LOOP_INTERVAL_SHORT = 1000 * 60 * 10;
 const LOOP_INTERVAL_LONG = 1000 * 60 * 60 * 24;
-const LOOP_SWITCH_COUNT = 24;
+const LOOP_SWITCH_COUNT = 6;
 let loopRunCount = 0;
 const watchedScreenNames = [
   "elonmusk",
