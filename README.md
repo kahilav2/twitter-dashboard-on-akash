@@ -1,12 +1,10 @@
 # twitter-dashboard-on-akash
 
-Twitter Dashboard on Akash displays the follower counts of specified Twitter accounts. It is containerized in order to be hosted on the Akash Network, a decentralized compute marketplace.
+Twitter Dashboard on Akash displays the follower counts of specified Twitter accounts. It is containerized and ready to be hosted on the [Akash Network](https://akash.network/), a decentralized and permissionless marketplace for compute.
 
 # How to deploy
 
-Twitter Dashboard on Akash can be deployed by following the deployment guide at akash.network:
-
-https://docs.akash.network/cli/deployment#create-the-deployment-configuration
+Twitter Dashboard on Akash can be deployed by following the [official deployment guide](https://docs.https://akash.network//cli/deployment#create-the-deployment-configuration)
 
 You will use deploy.yaml file in this repository for deployment. In deploy.yaml, you need to specify the TWITTER_KEY, DATABASE_URL, TWITTER_IDS environment variables. 
 
