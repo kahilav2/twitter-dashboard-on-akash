@@ -8,7 +8,13 @@ Twitter Dashboard on Akash can be deployed by following the deployment guide at 
 
 https://docs.akash.network/cli/deployment#create-the-deployment-configuration
 
-You will use deploy.yaml file in this repository for deployment. You need to specify the TWITTER_KEY, DATABASE_URL, TWITTER_IDS. TWITTER_KEY is the authentication key of your Twitter developer account (get it here https://developer.twitter.com/). TWITTER_IDS is a string of twitter identifiers that you want display, separated with a space (no quotation marks). DATABASE_URL is where Twitter Dashboard gets its initial data in the form of a sqlite database. The file needs to be hosted on the public internet at the time of deployment. The schema for the database can be seen in db-schema.sql.
+You will use deploy.yaml file in this repository for deployment. In deploy.yaml, you need to specify the TWITTER_KEY, DATABASE_URL, TWITTER_IDS environment variables. 
+
+TWITTER_KEY is the authentication key of your Twitter developer account, which is needed to access the Twitter APIs. You can apply for a developer account here https://developer.twitter.com/. 
+
+TWITTER_IDS is contains the twitter identifiers that you want display, as a string, Twitter identifiers separated with a space (without quotation marks). 
+
+DATABASE_URL is where Twitter Dashboard gets its initial data in the form of a sqlite database. The file needs to be hosted on the public internet at the time of deployment. The schema for the database can be seen in db-schema.sql.
 
 ```
   image: kahilav1/twitter-dashboard-on-akash
