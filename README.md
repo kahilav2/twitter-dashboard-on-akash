@@ -1,8 +1,8 @@
-### What is Twitter Dashboard On Akash?
+### What Is Twitter Dashboard On Akash?
 
 Twitter Dashboard on Akash displays and keeps track of the follower counts of specified Twitter accounts. It is containerized and ready to be hosted on [Akash Network](https://akash.network/), a decentralized and permissionless marketplace for cloud computing.
 
-### How to deploy
+### How To Deploy
 
 Twitter Dashboard on Akash can be deployed by following the [Akash' official deployment guide](https://docs.akash.network/cli/deployment#create-the-deployment-configuration)
 
