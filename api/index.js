@@ -39,10 +39,13 @@ const LOOP_INTERVAL_SHORT = 1000 * 60 * 10;
 const LOOP_INTERVAL_LONG = 1000 * 60 * 60 * 24;
 const LOOP_SWITCH_COUNT = 6;
 let loopRunCount = 0;
+console.log(process.env.TWITTER_IDS)
 const watchedScreenNames = process.env.TWITTER_IDS.split(' ');
 console.log("watchedScreenNames: ")
 console.log(watchedScreenNames)
 const TWITTER_KEY = process.env.TWITTER_KEY;
+console.log("TWITTER_KEY");
+console.log(TWITTER_KEY);
 
 const loop = async () => {
   for (const screenName of watchedScreenNames) {
@@ -57,8 +60,9 @@ const loop = async () => {
       );
       const row = db.prepare("INSERT INTO data_points(twitter_id, followers_count, date) VALUES (?,?,CURRENT_TIMESTAMP)");
       row.run(screenName, result.data.followers_count);
+      console.log(`${screenName} updated successfully`);
     } catch(error) {
-      console.error("ERROR: ", error.message);
+      console.error(error);
     }
     
   }

@@ -3,7 +3,7 @@
     <v-col cols="12" sm="8" md="6">
       <v-card>
         <v-card-title class="headline">
-          Twitter Dashboard
+          Twitter Followers Dashboard
         </v-card-title>
         <template v-for="(subset, index) of dataset">
           <Chart :dataset="subset" :key="index" class="chart"/>
