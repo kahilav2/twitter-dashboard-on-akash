@@ -1,6 +1,6 @@
 # twitter-dashboard-on-akash
 
-Twitter Dashboard on Akash displays the follower counts of specified Twitter accounts. It is deployed on the Akash Network.
+Twitter Dashboard on Akash displays the follower counts of specified Twitter accounts. It is containerized in order to be hosted on the Akash Network, a decentralized compute marketplace.
 
 # How to deploy
 
