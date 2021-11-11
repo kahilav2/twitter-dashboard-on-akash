@@ -11,7 +11,6 @@ WORKDIR /app
 RUN ls -l /app/api/ 
 
 RUN chmod +x /app/run.sh
-RUN /app/run.sh
 
 # RUN apt update && apt install -y apt-transport-https ca-certificates sqlite3
 # RUN sqlite3 --version
@@ -32,4 +31,5 @@ RUN npm run build
 
 EXPOSE 3000
 
-CMD ["npm", "run", "start"]
+CMD ["/app/run.sh"]
+# CMD ["npm", "run", "start"]

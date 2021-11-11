@@ -13,3 +13,5 @@ fi
 echo "[OK] DATABASE_URL defined"
 
 wget --no-check-certificate -O ./api/database.db $DATABASE_URL 
+
+npm run start
