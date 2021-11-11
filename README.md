@@ -17,9 +17,11 @@ You will use `deploy.yaml` file in this repository for deployment. In `deploy.ya
 Therefore, your deploy.yaml should look something like this:
 
 ```
+  ...
   image: kahilav1/twitter-dashboard-on-akash
   env:
     - TWITTER_KEY=AAAAAAAAAAAAAAAAAAAAAAyERJKDFwQK%2BIOno8MdkI095jgo%3DasOu%eraI42PvrekjTK24dpXuJEAwmDHktV5zVeAyRdozTZ8D
     - DATABASE_URL=http://example.com/database.db
     - TWITTER_IDS=BarackObama elonmusk CocaCola pepsi
+  ...
 ```
