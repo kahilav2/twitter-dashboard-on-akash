@@ -1,79 +1,34 @@
-const axios = require('axios');
+const express = require('express');
+const app = express();
 
-const express = require('express')
-const _ = require('underscore')
-const app = express()
+// Prepare a new database if DATABASE_URL was not defined
+const db = require('./utils/db.js');
+db.exec(`
+CREATE TABLE IF NOT EXISTS data_points (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+	twitter_id TEXT,
+  followers_count INTEGER NOT NULL,
+	date TEXT NOT NULL
+);
+`);
 
-const options = {};
-const db = require('better-sqlite3')('./api/database.db', options);
-
-app.get('/', (req, res) => {
-  const rows = db.prepare("SELECT * FROM data_points").all();
-
-  res.json(
-     _.pairs(
-      _.groupBy(rows, 'twitter_id')
-    )
-    .map((a) => (
-      { 
-        twitterID: a[0], 
-        latestFollowerCount: Math.max.apply(Math, a[1].map(function(o) { return o.followers_count; })),
-        dataPoints: a[1].map((b) => (
-          { 
-            followersCount: b.followers_count, 
-            date: b.date 
-          }))
-      }
-    ))
-    .sort((a, b)=> b.latestFollowerCount - a.latestFollowerCount )
-  )
-})
-app.get('/raw', (req, res) => {
-  const rows = db.prepare("SELECT * FROM data_points").all();
-
-  res.json(
-    rows
-  )
-})
-const LOOP_INTERVAL_SHORT = 1000 * 60 * 10;
-const LOOP_INTERVAL_LONG = 1000 * 60 * 60 * 24;
-const LOOP_SWITCH_COUNT = 6;
-let loopRunCount = 0;
-console.log(process.env.TWITTER_IDS)
-const watchedScreenNames = process.env.TWITTER_IDS.split(' ');
-console.log("watchedScreenNames: ")
-console.log(watchedScreenNames)
-const TWITTER_KEY = process.env.TWITTER_KEY;
-console.log("TWITTER_KEY");
-console.log(TWITTER_KEY);
-
-const loop = async () => {
-  for (const screenName of watchedScreenNames) {
-    console.log("GET:", screenName);
-    try {
-      const result = await axios.get(`https://api.twitter.com/1.1/users/show.json?screen_name=${screenName}`,
-        { 
-          headers: {
-            'Authorization': `Bearer ${TWITTER_KEY}`,
-          } 
-        }
-      );
-      const row = db.prepare("INSERT INTO data_points(twitter_id, followers_count, date) VALUES (?,?,CURRENT_TIMESTAMP)");
-      row.run(screenName, result.data.followers_count);
-      console.log(`${screenName} updated successfully`);
-    } catch(error) {
-      console.error(error);
-    }
+app.use('/', require('./routes/'));
     
-  }
-  console.log("RETRIEVAL FINISHED");
+app.use((req, res, next) => {
+  res.status(200);
+  res.header('Content-Type', 'application/json; charset=utf8mb4');
+  const responseData = res.responseData || {};
+  res.send(responseData);
+});
 
-  loopRunCount += 1;
-  setTimeout(loop, (loopRunCount < LOOP_SWITCH_COUNT) ? LOOP_INTERVAL_SHORT : LOOP_INTERVAL_LONG);
-}
-console.log("Starting loop")
+app.use((err, req, res, next) => {
+  console.error(`ERROR (${err.name}) ${req.originalUrl}, ${ err.message } ${ err.stack }` );
+  res.sendStatus(err.httpStatus || 500);
+});
+
+const loop = require('./loop.js');
+
 loop();
-//setTimeout(loop, 0);
 
 module.exports = {
   path: '/api',

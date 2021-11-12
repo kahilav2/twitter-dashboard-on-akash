@@ -4,8 +4,6 @@ RUN git clone https://github.com/kahilav2/twitter-dashboard-on-akash.git /app
 
 WORKDIR /app
 
-RUN ls -l /app/api/ 
-
 RUN chmod +x /app/run.sh
 
 RUN npm install

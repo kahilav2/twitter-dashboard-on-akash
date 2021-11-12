@@ -7,7 +7,7 @@ export default {
   extends: Line,
   props: {
     dataset: {
-      default: () => {},
+      default: [],
       type: Object,
     },
   },
@@ -19,8 +19,8 @@ export default {
   },
   methods: {
     render() {
-      const xs = this.dataset.dataPoints.map(a=>moment(a.date).format("MM/DD"))
-      const ys = this.dataset.dataPoints.map(a=>({ t: moment(a.date).format("MM/DD"), y: a.followersCount }))
+      const xs = this.dataset.dataPoints.map(point => moment(point.date).format('MM/DD'));
+      const ys = this.dataset.dataPoints.map(point => ({ t: moment(point.date).format('MM/DD'), y: point.followersCount }));
       
       this.renderChart({
         labels: xs,

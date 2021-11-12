@@ -1,12 +1,8 @@
-import dotenv from "dotenv";
-dotenv.config();
-
 import colors from 'vuetify/es5/util/colors'
 
 export default {
   env: {
     baseURL: '/',
-    // baseURL: `${ process.env.BASE_URL }` || 'http://localhost:3000'
   },
   server: {
     host: '0.0.0.0',  
