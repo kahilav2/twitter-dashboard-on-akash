@@ -1,11 +1,11 @@
 version: "2.0"
 services:
   web:
-    image: kahilav1/twitter-dashboard-on-akash:0.0.1
+    image: kahilav1/twitter-dashboard-on-akash
     env:
       - TWITTER_KEY=<insert key>
-      - DATABASE_URL=<insert url>
       - TWITTER_IDS=<insert ids, e.g. "elonmusk realtrump">
+      - DATABASE_URL=<insert url (optional, remove this line if not used)>
     expose:
       - port: 3000
         as: 80
@@ -17,11 +17,11 @@ profiles:
     web:
       resources:
         cpu:
-          units: 1
+          units: 0.1
         memory:
-          size: 1Gi
+          size: 512Mi
         storage:
-          size: 1Gi
+          size: 512Mi
   placement:
     westcoast:
       attributes:

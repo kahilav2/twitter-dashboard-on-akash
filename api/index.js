@@ -22,7 +22,7 @@ app.use((req, res, next) => {
 });
 
 app.use((err, req, res, next) => {
-  console.error(`ERROR (${err.name}) ${req.originalUrl}, ${ err.message } ${ err.stack }` );
+  console.error(`ERROR (${err.name}) ${req.originalUrl}, ${err.message} ${err.stack}`);
   res.sendStatus(err.httpStatus || 500);
 });
 
