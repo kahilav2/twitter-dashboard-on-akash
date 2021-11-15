@@ -7,8 +7,12 @@ export default {
   extends: Line,
   props: {
     dataset: {
-      default: [],
+      default: {},
       type: Object,
+    },
+    numbering: {
+      type: Number,
+      required: true 
     },
   },
   data () {
@@ -22,13 +26,18 @@ export default {
       const xs = this.dataset.dataPoints.map(point => moment(point.date).format('MM/DD'));
       const ys = this.dataset.dataPoints.map(point => ({ t: moment(point.date).format('MM/DD'), y: point.followersCount }));
       
+      const timePeriod = Math.min(7, this.dataset.dataPoints.length);
+      const percentageRaw = (1 - ys[ys.length - timePeriod].y / ys[ys.length - 1].y);
+      const percentage = percentageRaw.toFixed(3);
+      const sign = (percentage >= 0) ? '+' : '';
+
       this.renderChart({
         labels: xs,
         datasets: [{
-          label: this.dataset.twitterID,
+          label: this.dataset.twitterID + ` (${sign}${percentage}% in ${timePeriod} days)`,
           data: ys,
           fill: false,
-          borderColor: '#0058FF',
+          borderColor: this.$getConst('plot.borderColors')[this.numbering],
           backgroundColor: '#D1E6FA',
         }],
         scales: {

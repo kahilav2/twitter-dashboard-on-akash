@@ -34,7 +34,8 @@ export default {
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
     { src: '@/plugins/underscore', ssr: false },
-    { src: '~/plugins/axios.client.js' },
+    { src: '~/plugins/axios.client' },
+    { src: '~/plugins/common' }
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components

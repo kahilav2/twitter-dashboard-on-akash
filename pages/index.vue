@@ -5,8 +5,9 @@
         <v-card-title class="headline">
           Twitter Followers Dashboard
         </v-card-title>
+        <ChartMultiPlot v-if="dataset" :dataset="dataset" />
         <template v-for="(subset, index) of dataset">
-          <Chart :dataset="subset" :key="index" class="chart"/>
+          <Chart :dataset="subset" :key="index" :numbering="index" class="chart"/>
         </template>
       </v-card>
     </v-col>
@@ -15,10 +16,12 @@
 
 <script>
 import Chart from '~/components/chart.vue';
+import ChartMultiPlot from '~/components/chart-multiplot.vue';
 
 export default {
   components: {
     Chart,
+    ChartMultiPlot,
   },
   data () {
     return {
