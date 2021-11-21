@@ -6,6 +6,9 @@ services:
       - TWITTER_KEY=<insert key>
       - TWITTER_IDS=<insert ids, e.g. "elonmusk realtrump">
       - DATABASE_URL=<insert url (optional, remove this line if not used)>
+      - PAGE_TITLE=<insert page title>
+      - INTRODUCTION_TEXT=<insert introduction text>
+      - PAGE_META_DESCRIPTION=<insert meta description>
     expose:
       - port: 3000
         as: 80
