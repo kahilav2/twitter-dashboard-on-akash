@@ -35,7 +35,6 @@
 export default {
   data () {
     return {
-      footerText: process.env.pageTitle,
       clipped: false,
       drawer: false,
       fixed: false,
@@ -44,6 +43,11 @@ export default {
       rightDrawer: false,
       title: 'Vuetify.js'
     }
+  },
+  computed: {
+    footerText() {
+      return this.$store.getters["app/get"].pageTitle;
+    },
   }
 }
 </script>

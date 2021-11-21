@@ -44,14 +44,24 @@ export default {
   data () {
     return {
       dataset: null,
-      introductionText: process.env.introductionText,
-      pageTitle: process.env.pageTitle,
     }
   },
+  computed: {
+    pageTitle() {
+      return this.$store.getters["app/get"].pageTitle;
+    },
+    introductionText() {
+      return this.$store.getters["app/get"].introductionText;
+    },
+  },
   async mounted() {
-    const rawData = await this.$axios.$get(`/api`);
+    const response = await this.$axios.$get(`/api`);
 
-    this.dataset = this.structurizeData(rawData);
+    this.dataset = this.structurizeData(response.data);
+    this.$store.dispatch('app/set', { 
+      pageTitle: response.pageTitle,
+      introductionText: response.introductionText,
+    });
   },
   methods: {
     structurizeData(rawData) {
