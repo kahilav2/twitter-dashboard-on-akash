@@ -3,6 +3,8 @@ import colors from 'vuetify/es5/util/colors'
 export default {
   env: {
     baseURL: '/',
+    pageTitle: process.env.PAGE_TITLE,
+    introductionText: process.env.INTRODUCTION_TEXT,
   },
   server: {
     host: '0.0.0.0',  
@@ -10,8 +12,7 @@ export default {
   },
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    titleTemplate: '%s - twitter-dashboard-on-akash',
-    title: 'twitter-dashboard-on-akash',
+    title: process.env.PAGE_TITLE,
     htmlAttrs: {
       lang: 'en'
     },
