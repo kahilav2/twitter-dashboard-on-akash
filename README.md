@@ -23,5 +23,8 @@ Therefore, your deploy.yaml should look something like this:
     - TWITTER_KEY=AAAAAAAAAAAAAAAAAAAAAAyERJKDFwQK%2BIOno8MdkI095jgo%3DasOu%eraI42PvrekjTK24dpXuJEAwmDHktV5zVeAyRdozTZ8D
     - TWITTER_IDS=BarackObama elonmusk CocaCola pepsi
     - DATABASE_URL=http://example.com/database.db
+    - PAGE_TITLE=My Twitter Dashboard
+    - INTRODUCTION_TEXT=Welcome to My Twitter Dashboard! You can also use <a href="https://wikipedia.org/wiki/HTML">HTML notation</a> here.
+    - PAGE_META_DESCRIPTION=This text will show up in search engines
   ...
 ```
