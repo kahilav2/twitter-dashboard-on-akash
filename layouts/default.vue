@@ -26,7 +26,7 @@
       :absolute="!fixed"
       app
     >
-      <span>{{ footerText }} &copy; {{ new Date().getFullYear() }}</span>
+      <span>{{ footerText }} &copy; {{ new Date().getFullYear() }} (v3)</span>
     </v-footer>
   </v-app>
 </template>
