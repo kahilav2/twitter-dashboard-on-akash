@@ -22,22 +22,41 @@ export default {
       const xs = this.dataset.dataPoints.map(point => moment(point.date).format('MM/DD'));
       const ys = this.dataset.dataPoints.map(point => ({ t: moment(point.date).format('MM/DD'), y: point.followersCount }));
       
-      this.renderChart({
-        labels: xs,
-        datasets: [{
-          label: this.dataset.twitterID,
-          data: ys,
-          fill: false,
-          borderColor: this.$getConst('plot.borderColors')[this.dataset.index],
-          backgroundColor: '#D1E6FA',
-        }],
-        scales: {
-          xAxes: [{
-            type: 'time',
-            distribution: 'linear'
-          }],
+      this.renderChart(
+        {
+          labels: xs,
+          datasets: [{
+            label: this.dataset.twitterID,
+            data: ys,
+            fill: false,
+            borderColor: this.$getConst('plot.borderColors')[this.dataset.index],
+            backgroundColor: '#D1E6FA',
+          }]
+        },
+        {
+          responsive: true,
+          maintainAspectRatio: false,
+          legend: {
+            fontColor: "white",
+            labels: {
+              fontColor: "rgba(255, 255, 255, 0.7)",
+              fontSize: 17
+            }
+          },
+          scales: {
+            yAxes: [{
+              ticks: {
+                fontColor: "white",
+              }
+            }],
+            xAxes: [{
+              ticks: {
+                fontColor: "white",
+              }
+            }],
+          },
         }
-      });
+      );
     },
   }
 }

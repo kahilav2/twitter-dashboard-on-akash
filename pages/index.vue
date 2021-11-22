@@ -59,7 +59,7 @@
       </v-card>
       <v-card class="mb-12">
         <v-card-title>
-          Top Gainers
+          Top Gainers (7d)
         </v-card-title>
         <v-card-text>
           <Gainers v-if="dataset" :dataset="dataset"/>
