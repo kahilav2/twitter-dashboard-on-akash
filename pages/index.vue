@@ -57,7 +57,14 @@
           </v-col>
         </v-row>
       </v-card>
-
+      <v-card class="mb-12">
+        <v-card-title>
+          Top Gainers
+        </v-card-title>
+        <v-card-text>
+          <Gainers v-if="dataset" :dataset="dataset"/>
+        </v-card-text>
+      </v-card>
       <v-card class="mb-12">
         <SummaryTable v-if="dataset" :dataset="dataset"/>
       </v-card>
@@ -87,6 +94,7 @@
 import Chart from '~/components/chart.vue';
 import ChartMultiPlot from '~/components/chart-multiplot.vue';
 import SummaryTable from '~/components/summary-table.vue';
+import Gainers from '~/components/gainers.vue';
 
 import { nFormatter } from '~/utils/common';
 
@@ -95,6 +103,7 @@ export default {
     Chart,
     ChartMultiPlot,
     SummaryTable,
+    Gainers,
   },
   data () {
     return {
@@ -173,11 +182,11 @@ export default {
 .chart {
   margin-bottom: 50px;
 }
-span {
+::v-deep span {
   font-size: 15px;
   font-weight: bold;
   &.gain {
-    color: #7cf17c;
+    color: #5bd85b;
   }
   &.loss {
     color: #d65e5e;

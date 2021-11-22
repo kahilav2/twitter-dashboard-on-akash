@@ -21,6 +21,11 @@ export default {
         {
           text: '',
           align: 'start',
+          value: 'rank',
+        },
+        {
+          text: '',
+          align: 'start',
           sortable: false,
           value: 'twitterID',
         },
@@ -28,8 +33,9 @@ export default {
         { text: 'Growth (/7d)', value: 'weeklyGrowth' },
         { text: 'Growth-% (%/7d)', value: 'weeklyGrowthPercent' },
       ],
-      items: this.dataset.map(a=>
+      items: this.dataset.map((a, index) =>
         ({
+          rank: index + 1,
           twitterID: a.twitterID,
           latestFollowersCount: nFormatter(a.latestFollowersCount),
           weeklyGrowth: (a.growth.timePeriod >= 7) ? nFormatter(a.growth.absoluteGrowth) : 'N/A',
