@@ -3,11 +3,59 @@
     <v-col cols="12" sm="8" md="6">
       <v-card class="mb-12">
         <v-card-title class="headline">
+          <v-img
+            src="logo-large.png"
+            contain
+            max-height="36"
+            max-width="36"
+          />
           {{ pageTitle }}
         </v-card-title>
         <v-card-text>
           <p v-html="introductionText"/>
         </v-card-text>
+        <v-row class="pl-4 pr-4">
+          
+          <v-col
+            cols="4"
+            sm="4"
+          >
+            <a v-if="adminTwitterID" :href="`https://twitter.com/${adminTwitterID}`" target="blank">
+              <v-img 
+                src="twitter-white.png"
+                contain
+                max-height="26"
+                max-width="26"
+              />
+            </a>
+          </v-col>
+          <v-col
+            cols="4"
+            sm="4"
+          >
+            <a href="https://github.com/kahilav2/twitter-dashboard-on-akash" target="blank">
+              <v-img 
+                src="github.png"
+                contain
+                max-height="26"
+                max-width="26"
+              />
+            </a>
+          </v-col>
+          <v-col
+            cols="4"
+            sm="4"
+          >
+            <a href="https://akash.network/" target="blank">
+              <v-img 
+                src="akash.png"
+                contain
+                max-height="32"
+                max-width="106"
+              />
+            </a>
+          </v-col>
+        </v-row>
       </v-card>
 
       <v-card class="mb-12">
@@ -20,10 +68,15 @@
       -->
       <v-card v-for="(subset, index) of dataset" :key="index">
         <v-card-title class="headline">
-          {{ subset.twitterID }} 
-          ({{ subset.growth.percentageSign }}{{ subset.growth.percentage }}%, 
-          {{ subset.growth.absoluteGrowth }} followers in {{ subset.growth.timePeriod }} days)
+          {{ capitalize(subset.twitterID) }}
         </v-card-title>
+        <v-card-text>
+          {{ capitalize(subset.twitterID) }} is {{ subset.growth.percentageSign ? 'up' : 'down' }} 
+          <span :class="subset.growth.percentageSign ? 'gain' : 'loss'">
+          {{ subset.growth.percentageSign }}{{ subset.growth.percentage }}%
+          </span> after {{ subset.growth.percentageSign ? 'gaining' : 'losing' }} <span>{{format(subset.growth.absoluteGrowth) }}</span>
+          followers in {{ subset.growth.timePeriod }} days.
+        </v-card-text>
         <Chart :dataset="subset" :key="index" class="chart"/>
       </v-card>
     </v-col>
@@ -34,6 +87,8 @@
 import Chart from '~/components/chart.vue';
 import ChartMultiPlot from '~/components/chart-multiplot.vue';
 import SummaryTable from '~/components/summary-table.vue';
+
+import { nFormatter } from '~/utils/common';
 
 export default {
   components: {
@@ -48,19 +103,23 @@ export default {
   },
   computed: {
     pageTitle() {
-      return this.$store.getters["app/get"].pageTitle;
+      return this.$store.getters["app/get"].pageTitle ?? '';
     },
     introductionText() {
-      return this.$store.getters["app/get"].introductionText;
+      return this.$store.getters["app/get"].introductionText ?? '';
+    },
+    adminTwitterID() {
+      return this.$store.getters["app/get"].adminTwitterID;
     },
   },
   async mounted() {
-    const response = await this.$axios.$get(`/api`);
+    const { data, pageTitle, introductionText, adminTwitterID } = await this.$axios.$get(`/api`);
 
-    this.dataset = this.structurizeData(response.data);
+    this.dataset = this.structurizeData(data);
     this.$store.dispatch('app/set', { 
-      pageTitle: response.pageTitle,
-      introductionText: response.introductionText,
+      pageTitle,
+      introductionText,
+      adminTwitterID,
     });
   },
   methods: {
@@ -76,8 +135,8 @@ export default {
               date: b.date 
             }));
           const timePeriod = Math.min(7, dataPoints.length);
-          const percentageRaw = (1 - dataPoints[dataPoints.length - timePeriod].followersCount / 
-              dataPoints[dataPoints.length - 1].followersCount) * 100;
+          const percentageRaw = (dataPoints[dataPoints.length - 1].followersCount - dataPoints[dataPoints.length - timePeriod].followersCount) / 
+              dataPoints[dataPoints.length - timePeriod].followersCount * 100;
 
           const absoluteGrowth = dataPoints[dataPoints.length - 1].followersCount - 
               dataPoints[dataPoints.length - timePeriod].followersCount;
@@ -100,6 +159,12 @@ export default {
         })
         .sort((a, b) => b.latestFollowersCount - a.latestFollowersCount );
     },
+    format(number) {
+      return nFormatter(number);
+    },
+    capitalize([ first, ...rest ]) {
+      return first.toUpperCase() + rest.join('')
+    },
   },
 }
 </script>
@@ -108,4 +173,15 @@ export default {
 .chart {
   margin-bottom: 50px;
 }
+span {
+  font-size: 15px;
+  font-weight: bold;
+  &.gain {
+    color: #7cf17c;
+  }
+  &.loss {
+    color: #d65e5e;
+  }
+}
+
 </style>

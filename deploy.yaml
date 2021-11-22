@@ -8,7 +8,7 @@ services:
       - DATABASE_URL=<insert url (optional, remove this line if not used)>
       - PAGE_TITLE=<insert page title>
       - INTRODUCTION_TEXT=<insert introduction text>
-      - PAGE_META_DESCRIPTION=<insert meta description>
+      - ADMIN_TWITTER_ID=<insert your twitter id (optional, remove this line if not used)>
     expose:
       - port: 3000
         as: 80

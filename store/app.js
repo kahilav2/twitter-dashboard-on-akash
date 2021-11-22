@@ -2,8 +2,9 @@
 /* eslint-disable no-param-reassign */
 
 const getDefaultState = () => ({
-  pageTitle: '',
-  introductionText: '',
+  pageTitle: null,
+  introductionText: null,
+  adminTwitterID: null,
 });
 
 export const getters = {

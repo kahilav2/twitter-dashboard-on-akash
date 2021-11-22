@@ -3,8 +3,6 @@ import colors from 'vuetify/es5/util/colors'
 export default {
   env: {
     baseURL: '/',
-    pageTitle: process.env.PAGE_TITLE,
-    introductionText: process.env.INTRODUCTION_TEXT,
   },
   server: {
     host: '0.0.0.0',  
@@ -22,7 +20,7 @@ export default {
       {
         hid: 'description',
         name: 'description',
-        content: 'Twitter Follower Dashboard' || '',
+        content: 'Twitter Follower Dashboard',
       },
       { name: 'format-detection', content: 'telephone=no' },
       

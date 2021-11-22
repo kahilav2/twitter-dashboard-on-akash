@@ -26,7 +26,25 @@
       :absolute="!fixed"
       app
     >
-      <span>{{ footerText }} &copy; {{ new Date().getFullYear() }} (v3)</span>
+      <span>{{ footerText }} &copy; {{ new Date().getFullYear() }}</span>
+      <div class="pl-6 footer-logo-container">
+        <a v-if="adminTwitterID" :href="`https://twitter.com/${adminTwitterID}`" target="blank">
+          <v-img 
+            src="twitter-white.png"
+            contain
+            max-height="20"
+            max-width="20"
+          />
+        </a>
+        <a href="https://github.com/kahilav2/twitter-dashboard-on-akash" target="blank">
+          <v-img 
+            src="github.png"
+            contain
+            max-height="20"
+            max-width="20"
+          />
+        </a>
+      </div>
     </v-footer>
   </v-app>
 </template>
@@ -48,6 +66,15 @@ export default {
     footerText() {
       return this.$store.getters["app/get"].pageTitle;
     },
+    adminTwitterID() {
+      return this.$store.getters["app/get"].adminTwitterID;
+    },
   }
 }
 </script>
+<style lang="scss" scoped>
+.footer-logo-container {
+  display: flex;
+  align-items: center;
+}
+</style>

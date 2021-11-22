@@ -3,6 +3,7 @@
     :headers="headers"
     :items="items"
     :options="options"
+    hide-default-footer
     class="elevation-1" />
 </template>
 <script>
