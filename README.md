@@ -14,6 +14,10 @@ You will use `deploy.yaml` file in this repository for deployment. In `deploy.ya
 
 `DATABASE_URL` is an optional variable, which designates the location of an initial database. The file must be sqlite3 database and needs to be hosted on the public internet at the time of deployment. The schema for the database can be seen in `db-schema.sql`. This line should be removed from the `deploy.yaml` file if not used.
 
+`PAGE_TITLE` is the site name and what renders at top of the page, under the title you can write your own `INTRODUCTION_TEXT`.
+
+`ADMIN_TWITTER_ID` (optional) adds a link to your Twitter.
+
 Therefore, your deploy.yaml should look something like this:
 
 ```
@@ -25,6 +29,11 @@ Therefore, your deploy.yaml should look something like this:
     - DATABASE_URL=http://example.com/database.db
     - PAGE_TITLE=My Twitter Dashboard
     - INTRODUCTION_TEXT=Welcome to My Twitter Dashboard! You can also use <a href="https://wikipedia.org/wiki/HTML">HTML notation</a> here.
-    - PAGE_META_DESCRIPTION=This text will show up in search engines
+    - ADMIN_TWITTER_ID=mytwitterdashboard_
+  expose:
+      - port: 3000
+        as: 80
+        accept:
+          - mytwitterdashboard.com
   ...
 ```

@@ -8,6 +8,7 @@
             contain
             max-height="36"
             max-width="36"
+            class="mr-1"
           />
           {{ pageTitle }}
         </v-card-title>

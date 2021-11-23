@@ -12,6 +12,8 @@ services:
     expose:
       - port: 3000
         as: 80
+        accept:
+          - mytwitterdashboard.com
         to:
           - global: true
 
