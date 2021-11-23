@@ -18,6 +18,8 @@ You will use `deploy.yaml` file in this repository for deployment. In `deploy.ya
 
 `ADMIN_TWITTER_ID` (optional) adds a link to your Twitter.
 
+Under `accept:`, you can define the domain that is associated with your website.
+
 Therefore, your deploy.yaml should look something like this:
 
 ```
