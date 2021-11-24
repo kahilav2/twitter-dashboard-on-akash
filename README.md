@@ -30,7 +30,7 @@ Therefore, your deploy.yaml should look something like this:
     - TWITTER_IDS=BarackObama elonmusk CocaCola pepsi
     - DATABASE_URL=http://example.com/database.db
     - PAGE_TITLE=My Twitter Dashboard
-    - INTRODUCTION_TEXT=Welcome to My Twitter Dashboard! You can also use <a href="https://wikipedia.org/wiki/HTML">HTML notation</a> here.
+    - INTRODUCTION_TEXT=Welcome to My Twitter Dashboard!
     - ADMIN_TWITTER_ID=mytwitterdashboard_
   expose:
       - port: 3000
@@ -39,3 +39,6 @@ Therefore, your deploy.yaml should look something like this:
           - mytwitterdashboard.com
   ...
 ```
+
+### Keeping the state
+Normally, when the container is re-deployed, you will lose the data that Twitter Dashboard on Akash has collected. If you want the database to persist over deploys, you need to download the database at /api/raw/ before every deploy, turn the data into a sqlite database, upload it on the internet and define `DATABASE_URL` with the URL.
