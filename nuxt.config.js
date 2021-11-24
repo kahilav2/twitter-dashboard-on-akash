@@ -3,6 +3,7 @@ import colors from 'vuetify/es5/util/colors'
 export default {
   env: {
     baseURL: '/',
+    usesHTTPS: (process.env.USES_HTTPS === 'true')
   },
   server: {
     host: '0.0.0.0',  

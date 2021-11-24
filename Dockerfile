@@ -9,6 +9,7 @@ RUN chmod +x /app/run.sh
 RUN npm install
 
 ARG APP_NODE_ENV=production
+ARG USES_HTTPS=true
 
 RUN npm run build
 
