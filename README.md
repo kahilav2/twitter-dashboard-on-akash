@@ -30,7 +30,7 @@ Therefore, your deploy.yaml should look something like this:
     - TWITTER_IDS=BarackObama elonmusk CocaCola pepsi
     - DATABASE_URL=http://example.com/database.db
     - PAGE_TITLE=My Twitter Dashboard
-    - INTRODUCTION_TEXT=Welcome to My Twitter Dashboard! You can also use <a href="https://wikipedia.org/wiki/HTML">HTML notation</a> here.
+    - INTRODUCTION_TEXT=Welcome to My Twitter Dashboard!
     - ADMIN_TWITTER_ID=mytwitterdashboard_
   expose:
       - port: 3000
