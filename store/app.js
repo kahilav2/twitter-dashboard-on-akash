@@ -5,6 +5,7 @@ const getDefaultState = () => ({
   pageTitle: null,
   introductionText: null,
   adminTwitterID: null,
+  dataset: null,
 });
 
 export const getters = {

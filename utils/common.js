@@ -22,3 +22,40 @@ export function nFormatter(num) {
   }
   return num;
 }
+
+export function structurizeData(ctx, rawData) {
+  return ctx.$_.pairs(
+      ctx.$_.groupBy(rawData, 'twitter_id')
+    )
+    .map((pairs, index) => {
+      const twitterID = pairs[0];
+      const dataPoints = pairs[1].map((b) => (
+        { 
+          followersCount: b.followers_count, 
+          date: b.date 
+        }));
+      const timePeriod = Math.min(7, dataPoints.length);
+      const percentageRaw = (dataPoints[dataPoints.length - 1].followersCount - dataPoints[dataPoints.length - timePeriod].followersCount) / 
+          dataPoints[dataPoints.length - timePeriod].followersCount * 100;
+
+      const absoluteGrowth = dataPoints[dataPoints.length - 1].followersCount - 
+          dataPoints[dataPoints.length - timePeriod].followersCount;
+      const percentage = percentageRaw.toFixed(2);
+      const percentageSign = (percentage >= 0) ? '+' : '';
+
+      return { 
+        index,
+        twitterID, 
+        latestFollowersCount: Math.max.apply(Math, pairs[1].map((row) => row.followers_count)),
+        dataPoints,
+        growth: {
+          timePeriod,
+          percentage,
+          percentageSign,
+          percentageRaw,
+          absoluteGrowth,
+        },
+      };
+    })
+    .sort((a, b) => b.latestFollowersCount - a.latestFollowersCount );
+};

@@ -33,7 +33,7 @@
         <v-img
           max-height="20"
           max-width="20"
-          src="trend.png"
+          :src="imageSources.trend"
         />
       </nuxt-link>
     </template>
@@ -50,6 +50,7 @@ export default {
   },
   data() {
     return {
+      imageSources: { trend: require('~/assets/trend.png') },
       headers: [
         {
           text: '',
