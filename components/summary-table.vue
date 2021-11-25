@@ -3,12 +3,21 @@
     :headers="headers"
     :items="items"
     :options="options"
+    dense
     hide-default-footer
     class="elevation-1">
-    <template v-slot:[`item.twitterID`]="{ item }" @click="jee">
-      <nuxt-link :to="{ path: '/', hash: item.twitterID } " class="link">
-        {{ item.twitterID }}
+    <template v-slot:[`header.trend`]="">
+      <nuxt-link :to="{ name: 'trends' } " class="link">
+        <v-img
+          lazy-src="multi-trend.png"
+          max-height="22"
+          max-width="22"
+          src="multi-trend.png"
+        />
       </nuxt-link>
+    </template>
+    <template v-slot:[`item.twitterID`]="{ item }">
+      {{ capitalize(item.twitterID) }}
     </template>
     <template v-slot:[`item.latestFollowersCount`]="{ item }">
       {{ format(item.latestFollowersCount) }}
@@ -18,6 +27,15 @@
     </template>
     <template v-slot:[`item.weeklyGrowthPercentage`]="{ item }">
       <span class="gain">{{ formatWeeklyGrowthPercentage(item.weeklyGrowthPercentage) }}</span>
+    </template>
+    <template v-slot:[`item.trend`]="{ item }">
+      <nuxt-link :to="{ path: '/trends/' + item.twitterID } " class="link">
+        <v-img
+          max-height="20"
+          max-width="20"
+          src="trend.png"
+        />
+      </nuxt-link>
     </template>
   </v-data-table>
 </template>
@@ -48,6 +66,7 @@ export default {
         { text: 'Followers', value: 'latestFollowersCount' },
         { text: 'Growth (/7d)', value: 'weeklyGrowth' },
         { text: 'Growth-% (%/7d)', value: 'weeklyGrowthPercentage' },
+        { text: '', value: 'trend', sortable: false, },
       ],
       items: this.dataset.map((a, index) =>
         ({
@@ -74,6 +93,9 @@ export default {
     formatWeeklyGrowthPercentage(weeklyGrowthPercentage) {
       if (!weeklyGrowthPercentage) return '';
       return (weeklyGrowthPercentage >= 0 ? '+' : '') + nFormatter(weeklyGrowthPercentage) + '%';
+    },
+    capitalize([ first, ...rest ]) {
+      return first.toUpperCase() + rest.join('')
     },
   },
 }

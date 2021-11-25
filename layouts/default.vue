@@ -1,6 +1,6 @@
 <template>
   <v-app dark>
-    <v-main>
+    <v-main class="mb-10">
       <v-container>
         <Nuxt />
       </v-container>
@@ -26,31 +26,37 @@
       :absolute="!fixed"
       app
     >
-      <span>{{ footerText }} &copy; {{ new Date().getFullYear() }}</span>
-      <div class="pl-6 footer-logo-container">
-        <a v-if="adminTwitterID" :href="`https://twitter.com/${adminTwitterID}`" target="blank">
-          <v-img 
-            src="twitter-white.png"
-            contain
-            max-height="20"
-            max-width="20"
-          />
-        </a>
-        <a href="https://github.com/kahilav2/twitter-dashboard-on-akash" target="blank">
-          <v-img 
-            src="github.png"
-            contain
-            max-height="20"
-            max-width="20"
-          />
-        </a>
-      </div>
+      <v-container class="footer-container">
+        <v-row justify="center" align="center" id="app">
+          <v-row class="col-sm-8 col-md-6 col-12">
+            <v-col cols="6" sm="6">
+              <span>{{ footerText }} &copy; {{ new Date().getFullYear() }}</span>
+            </v-col>
+            <v-col cols="6" sm="6">
+              <div class="footer-logo-container">
+                <a v-if="adminTwitterID" :href="`https://twitter.com/${adminTwitterID}`" target="blank" class="mr-3">
+                  <TwitterIcon/>
+                </a>
+                <a href="https://github.com/kahilav2/twitter-dashboard-on-akash" target="blank">
+                  <GithubIcon/>
+                </a>
+              </div>
+            </v-col>
+          </v-row>
+        </v-row>
+      </v-container>
     </v-footer>
   </v-app>
 </template>
 
 <script>
+import GithubIcon from '~/components/github-icon.vue';
+import TwitterIcon from '~/components/twitter-icon.vue';
 export default {
+  components: {
+    TwitterIcon,
+    GithubIcon,
+  },
   data () {
     return {
       clipped: false,
@@ -76,5 +82,8 @@ export default {
 .footer-logo-container {
   display: flex;
   align-items: center;
+}
+.footer-container {
+  min-height: 60px;
 }
 </style>

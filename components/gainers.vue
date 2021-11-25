@@ -51,7 +51,7 @@ export default {
       return nFormatter(number);
     },
     navigateTo(twitterID) {
-      this.$router.push(`#${twitterID}`);
+      this.$router.push({ path: `/trends/${twitterID}` });
     }
   },
 }

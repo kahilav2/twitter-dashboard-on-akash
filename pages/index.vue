@@ -69,24 +69,6 @@
       <v-card class="mb-12">
         <SummaryTable v-if="dataset" :dataset="dataset"/>
       </v-card>
-      <!--
-      <v-card class="mb-12">
-        <ChartMultiPlot v-if="dataset" :dataset="dataset" />
-      </v-card>
-      -->
-      <v-card v-for="(subset, index) of dataset" :key="index" :id="subset.twitterID">
-        <v-card-title class="headline">
-          {{ capitalize(subset.twitterID) }}
-        </v-card-title>
-        <v-card-text>
-          {{ capitalize(subset.twitterID) }} is {{ subset.growth.percentageSign ? 'up' : 'down' }} 
-          <span :class="subset.growth.percentageSign ? 'gain' : 'loss'">
-          {{ subset.growth.percentageSign }}{{ subset.growth.percentage }}%
-          </span> after {{ subset.growth.percentageSign ? 'gaining' : 'losing' }} <span class="neutral">{{format(subset.growth.absoluteGrowth) }}</span>
-          followers in {{ subset.growth.timePeriod }} days.
-        </v-card-text>
-        <Chart :dataset="subset" :key="index" class="chart"/>
-      </v-card>
     </v-col>
   </v-row>
 </template>
@@ -97,7 +79,7 @@ import ChartMultiPlot from '~/components/chart-multiplot.vue';
 import SummaryTable from '~/components/summary-table.vue';
 import Gainers from '~/components/gainers.vue';
 
-import { nFormatter } from '~/utils/common';
+import { nFormatter, structurizeData } from '~/utils/common';
 
 export default {
   components: {
@@ -123,52 +105,22 @@ export default {
     },
   },
   async mounted() {
-    const { data, pageTitle, introductionText, adminTwitterID } = await this.$axios.$get(`/api`);
+    const dataset = this.$store.getters["app/get"].dataset;
+    if (dataset === null) {
+      const { data, pageTitle, introductionText, adminTwitterID } = await this.$axios.$get(`/api`);
 
-    this.dataset = this.structurizeData(data);
-    this.$store.dispatch('app/set', { 
-      pageTitle,
-      introductionText,
-      adminTwitterID,
-    });
+      this.dataset = structurizeData(this, data);
+      this.$store.dispatch('app/set', { 
+        pageTitle,
+        introductionText,
+        adminTwitterID,
+        dataset: this.dataset,
+      });
+    } else {
+      this.dataset = dataset;
+    }
   },
   methods: {
-    structurizeData(rawData) {
-      return this.$_.pairs(
-          this.$_.groupBy(rawData, 'twitter_id')
-        )
-        .map((pairs, index) => {
-          const twitterID = pairs[0];
-          const dataPoints = pairs[1].map((b) => (
-            { 
-              followersCount: b.followers_count, 
-              date: b.date 
-            }));
-          const timePeriod = Math.min(7, dataPoints.length);
-          const percentageRaw = (dataPoints[dataPoints.length - 1].followersCount - dataPoints[dataPoints.length - timePeriod].followersCount) / 
-              dataPoints[dataPoints.length - timePeriod].followersCount * 100;
-
-          const absoluteGrowth = dataPoints[dataPoints.length - 1].followersCount - 
-              dataPoints[dataPoints.length - timePeriod].followersCount;
-          const percentage = percentageRaw.toFixed(2);
-          const percentageSign = (percentage >= 0) ? '+' : '';
-
-          return { 
-            index,
-            twitterID, 
-            latestFollowersCount: Math.max.apply(Math, pairs[1].map((row) => row.followers_count)),
-            dataPoints,
-            growth: {
-              timePeriod,
-              percentage,
-              percentageSign,
-              percentageRaw,
-              absoluteGrowth,
-            },
-          };
-        })
-        .sort((a, b) => b.latestFollowersCount - a.latestFollowersCount );
-    },
     format(number) {
       return nFormatter(number);
     },
@@ -182,19 +134,6 @@ export default {
 <style lang="scss" scoped>
 .chart {
   margin-bottom: 50px;
-}
-::v-deep span {
-  font-size: 15px;
-  font-weight: bold;
-  &.gain {
-    color: #5bd85b;
-  }
-  &.loss {
-    color: #d65e5e;
-  }
-  &.neutral {
-    color: #cccccc;
-  }
 }
 
 </style>

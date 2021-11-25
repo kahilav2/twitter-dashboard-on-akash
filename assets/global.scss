@@ -1,0 +1,13 @@
+span {
+  font-size: 15px;
+  font-weight: bold;
+  &.gain {
+    color: #5bd85b;
+  }
+  &.loss {
+    color: #d65e5e;
+  }
+  &.neutral {
+    color: #d8da7c;
+  }
+}
