@@ -1,13 +1,25 @@
 span {
   font-size: 15px;
-  font-weight: bold;
+  
   &.gain {
     color: #5bd85b;
+    font-weight: bold;
   }
   &.loss {
     color: #d65e5e;
+    font-weight: bold;
   }
   &.neutral {
     color: #d8da7c;
+    font-weight: bold;
+  }
+  &.low-followers-count {
+    color: #bababa;
+  }
+  &.medium-followers-count {
+    color: #f0f0f0;
+  }
+  &.high-followers-count {
+    color: #ffffff;
   }
 }

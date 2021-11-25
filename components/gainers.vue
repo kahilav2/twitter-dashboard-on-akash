@@ -20,7 +20,7 @@
         @click="navigateTo(twitterID)"
       >
         {{ twitterID }} 
-        <span :key="index" class="gain ml-2">{{ percentageSign + percentage }}% </span> 
+        <span :key="index" class="gain ml-2">{{ percentageSign + format(percentage) }}% </span> 
       </v-chip>
     </v-row>
   </v-container>

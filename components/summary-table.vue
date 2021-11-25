@@ -20,7 +20,7 @@
       {{ capitalize(item.twitterID) }}
     </template>
     <template v-slot:[`item.latestFollowersCount`]="{ item }">
-      {{ format(item.latestFollowersCount) }}
+      <span :class="getClass(item.latestFollowersCount)">{{ format(item.latestFollowersCount) }}</span>
     </template>
     <template v-slot:[`item.weeklyGrowth`]="{ item }">
       <span class="neutral">{{ formatWeeklyGrowth(item.weeklyGrowth) }}</span>
@@ -98,6 +98,11 @@ export default {
     capitalize([ first, ...rest ]) {
       return first.toUpperCase() + rest.join('')
     },
+    getClass(followersCount) {
+      if (followersCount < 100000) return 'low-followers-count';
+      if (followersCount < 1000000) return 'medium-followers-count';
+      return 'high-followers-count';
+    }
   },
 }
 </script>

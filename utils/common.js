@@ -12,15 +12,15 @@ export function nFormatter(num) {
   const isNegative = (num < 0);
 
   if (absoluteValue >= 1000000000) {
-      return (isNegative ? '-' : '') + (absoluteValue / 1000000000).toFixed(1).replace(/\.0$/, '') + 'G';
+    return (isNegative ? '-' : '') + parseFloat((absoluteValue / 1000000000).toPrecision(2)) + 'G';
   }
   if (absoluteValue >= 1000000) {
-      return (isNegative ? '-' : '') + (absoluteValue / 1000000).toFixed(1).replace(/\.0$/, '') + 'M';
+    return (isNegative ? '-' : '') + parseFloat((absoluteValue / 1000000).toPrecision(2)) + 'M';
   }
   if (absoluteValue >= 1000) {
-      return (isNegative ? '-' : '') + (absoluteValue / 1000).toFixed(1).replace(/\.0$/, '') + 'k';
+    return (isNegative ? '-' : '') + parseFloat((absoluteValue / 1000).toPrecision(2)) + 'k';
   }
-  return num;
+  return parseFloat((num/1.0).toPrecision(2));
 }
 
 export function structurizeData(ctx, rawData) {
@@ -57,5 +57,6 @@ export function structurizeData(ctx, rawData) {
         },
       };
     })
-    .sort((a, b) => b.latestFollowersCount - a.latestFollowersCount );
+    .sort((a, b) => b.latestFollowersCount - a.latestFollowersCount )
+    // .filter((subset)=> subset.dataPoints.length >= 7);
 };
