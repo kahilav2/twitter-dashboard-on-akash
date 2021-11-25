@@ -1,6 +1,17 @@
 <template>
   <v-container>
     <v-row class="mb-2">
+      <v-chip v-for="({ growth: { absoluteGrowth, percentageSign }, twitterID }, index) in absoluteTop3" 
+        :key="index" 
+        class="mr-2"
+        color="grey darken-3"
+        @click="navigateTo(twitterID)"
+      >
+        {{ twitterID }} 
+        <span :key="index" class="neutral ml-2">{{ percentageSign + format(absoluteGrowth) }} </span>
+      </v-chip>
+    </v-row>
+    <v-row>
       <v-chip 
         v-for="({ growth: { percentage, percentageSign }, twitterID }, index) in percentageTop3" 
         :key="index" 
@@ -10,17 +21,6 @@
       >
         {{ twitterID }} 
         <span :key="index" class="gain ml-2">{{ percentageSign + percentage }}% </span> 
-      </v-chip>
-    </v-row>
-    <v-row>
-      <v-chip v-for="({ growth: { absoluteGrowth, percentageSign }, twitterID }, index) in absoluteTop3" 
-        :key="index" 
-        class="mr-2"
-        color="grey darken-3"
-        @click="navigateTo(twitterID)"
-      >
-        {{ twitterID }} 
-        <span :key="index" class="neutral ml-2">{{ percentageSign + format(absoluteGrowth) }} </span>
       </v-chip>
     </v-row>
   </v-container>
