@@ -1,5 +1,5 @@
 <template>
-  <v-row justify="center" align="center">
+  <v-row justify="center" align="center" id="app">
     <v-col cols="12" sm="8" md="6">
       <v-card class="mb-12">
         <v-card-title class="headline">
@@ -74,7 +74,7 @@
         <ChartMultiPlot v-if="dataset" :dataset="dataset" />
       </v-card>
       -->
-      <v-card v-for="(subset, index) of dataset" :key="index">
+      <v-card v-for="(subset, index) of dataset" :key="index" :id="subset.twitterID">
         <v-card-title class="headline">
           {{ capitalize(subset.twitterID) }}
         </v-card-title>
@@ -82,7 +82,7 @@
           {{ capitalize(subset.twitterID) }} is {{ subset.growth.percentageSign ? 'up' : 'down' }} 
           <span :class="subset.growth.percentageSign ? 'gain' : 'loss'">
           {{ subset.growth.percentageSign }}{{ subset.growth.percentage }}%
-          </span> after {{ subset.growth.percentageSign ? 'gaining' : 'losing' }} <span>{{format(subset.growth.absoluteGrowth) }}</span>
+          </span> after {{ subset.growth.percentageSign ? 'gaining' : 'losing' }} <span class="neutral">{{format(subset.growth.absoluteGrowth) }}</span>
           followers in {{ subset.growth.timePeriod }} days.
         </v-card-text>
         <Chart :dataset="subset" :key="index" class="chart"/>
@@ -191,6 +191,9 @@ export default {
   }
   &.loss {
     color: #d65e5e;
+  }
+  &.neutral {
+    color: #cccccc;
   }
 }
 

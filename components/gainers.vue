@@ -6,6 +6,7 @@
         :key="index" 
         class="mr-2"
         color="grey darken-3"
+        @click="navigateTo(twitterID)"
       >
         {{ twitterID }} 
         <span :key="index" class="gain ml-2">{{ percentageSign + percentage }}% </span> 
@@ -16,9 +17,10 @@
         :key="index" 
         class="mr-2"
         color="grey darken-3"
+        @click="navigateTo(twitterID)"
       >
         {{ twitterID }} 
-        <span :key="index" class="gain ml-2">{{ percentageSign + format(absoluteGrowth) }} </span>
+        <span :key="index" class="neutral ml-2">{{ percentageSign + format(absoluteGrowth) }} </span>
       </v-chip>
     </v-row>
   </v-container>
@@ -47,6 +49,9 @@ export default {
   methods: {
     format(number) {
       return nFormatter(number);
+    },
+    navigateTo(twitterID) {
+      this.$router.push(`#${twitterID}`);
     }
   },
 }
