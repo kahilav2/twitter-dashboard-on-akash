@@ -15,4 +15,16 @@ if [ -n "$DATABASE_URL" ]; then
   echo "Database retrieved"
 fi
 
+echo "[DEBUG] Trying to build"
+
+APP_NODE_ENV=production
+USES_HTTPS=true
+
+echo "APP_NODE_ENV: $APP_NODE_ENV"
+echo "USES_HTTPS: $USES_HTTPS"
+
+npm run build
+
+echo "[DEBUG] Build complete"
+
 npm run start
