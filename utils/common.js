@@ -7,20 +7,20 @@ export function sleep(ms) {
 }
 
 // snippet from https://www.codegrepper.com/code-examples/javascript/convert+number+to+k+m+b+javascript
-export function nFormatter(num) {
+export function nFormatter(num, { significantFigures } = { significantFigures: 2 }) {
   const absoluteValue = Math.abs(num);
   const isNegative = (num < 0);
 
   if (absoluteValue >= 1000000000) {
-    return (isNegative ? '-' : '') + parseFloat((absoluteValue / 1000000000).toPrecision(2)) + 'G';
+    return (isNegative ? '-' : '') + parseFloat((absoluteValue / 1000000000).toPrecision(significantFigures)) + 'G';
   }
   if (absoluteValue >= 1000000) {
-    return (isNegative ? '-' : '') + parseFloat((absoluteValue / 1000000).toPrecision(2)) + 'M';
+    return (isNegative ? '-' : '') + parseFloat((absoluteValue / 1000000).toPrecision(significantFigures)) + 'M';
   }
   if (absoluteValue >= 1000) {
-    return (isNegative ? '-' : '') + parseFloat((absoluteValue / 1000).toPrecision(2)) + 'k';
+    return (isNegative ? '-' : '') + parseFloat((absoluteValue / 1000).toPrecision(significantFigures)) + 'k';
   }
-  return parseFloat((num/1.0).toPrecision(2));
+  return parseFloat((num/1.0).toPrecision(significantFigures));
 }
 
 export function structurizeData(ctx, rawData) {
@@ -58,5 +58,5 @@ export function structurizeData(ctx, rawData) {
       };
     })
     .sort((a, b) => b.latestFollowersCount - a.latestFollowersCount )
-    // .filter((subset)=> subset.dataPoints.length >= 7);
+    // .filter((subset)=> subset.dataPoints.length >= 2);
 };

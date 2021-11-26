@@ -11,7 +11,7 @@
           <span :class="subset.growth.percentageSign ? 'gain' : 'loss'">
           {{ subset.growth.percentageSign }}{{ subset.growth.percentage }}%
           </span> after {{ subset.growth.percentageSign ? 'gaining' : 'losing' }} <span class="neutral">{{format(subset.growth.absoluteGrowth) }}</span>
-          followers in {{ subset.growth.timePeriod }} days.
+          followers in {{ subset.growth.timePeriod }} days. {{ capitalize(subset.twitterID) }} currently has <span class="neutral-white">{{ format(subset.latestFollowersCount, { significantFigures: 3 }) }}</span> followers.
         </v-card-text>
         <Chart :dataset="subset" class="chart"/>
       </v-card>
@@ -67,8 +67,8 @@ export default {
       }
       this.subset = subsetCandidate;
     },
-    format(number) {
-      return nFormatter(number);
+    format(number, options) {
+      return nFormatter(number, options);
     },
     capitalize([ first, ...rest ]) {
       return first.toUpperCase() + rest.join('')

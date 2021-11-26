@@ -19,6 +19,18 @@
     <template v-slot:[`item.twitterID`]="{ item }">
       {{ capitalize(item.twitterID) }}
     </template>
+    <template v-slot:[`item.externalLink`]="{ item }">
+      
+        <a :href="`http://twitter.com/${item.twitterID}`" target="blank" class="link">
+        <v-img
+          max-height="15"
+          max-width="15"
+          class="external-link"
+          :src="imageSources.externalLink"
+        />
+      </a>
+      
+    </template>
     <template v-slot:[`item.latestFollowersCount`]="{ item }">
       <span :class="getClass(item.latestFollowersCount)">{{ format(item.latestFollowersCount) }}</span>
     </template>
@@ -50,7 +62,10 @@ export default {
   },
   data() {
     return {
-      imageSources: { trend: require('~/assets/trend.png') },
+      imageSources: { 
+        trend: require('~/assets/trend.png'),
+        externalLink: require('~/assets/external-link.png'),
+      },
       headers: [
         {
           text: '',
@@ -63,6 +78,11 @@ export default {
           align: 'start',
           sortable: false,
           value: 'twitterID',
+        },
+        {
+          text: '',
+          sortable: false,
+          value: 'externalLink',
         },
         { text: 'Followers', value: 'latestFollowersCount' },
         { text: 'Growth (/7d)', value: 'weeklyGrowth' },
@@ -79,7 +99,7 @@ export default {
         })
       ),
       options: {
-        itemsPerPage: 30,
+        itemsPerPage: 100,
       }
     };
   },
@@ -110,5 +130,17 @@ export default {
 .link {
   color: white;
   text-decoration: none;
+}
+.external-link{
+  -webkit-transition: all 0.2s ease;
+  transition: all 0.2s ease;
+  &:hover {
+    -webkit-filter: brightness(2.3);
+    filter: brightness(2.3);
+    
+  }
+}
+::v-deep tr {
+  transition: all 0.13s ease-out;
 }
 </style>

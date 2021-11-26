@@ -1,5 +1,6 @@
 <script>
 import { Line } from 'vue-chartjs'
+import { nFormatter } from '~/utils/common';
 import moment from 'moment'
 
 export default {
@@ -46,6 +47,10 @@ export default {
           scales: {
             yAxes: [{
               ticks: {
+                callback(value, index, values) {
+                  return nFormatter(value, { significantFigures: 3 });
+                },
+                maxTicksLimit: 4,
                 fontColor: "white",
               }
             }],
