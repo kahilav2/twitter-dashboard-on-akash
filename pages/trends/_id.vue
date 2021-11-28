@@ -52,8 +52,9 @@ export default {
   methods: {
     async getData () {
       const { data, pageTitle, introductionText, adminTwitterID } = await this.$axios.$get(`/api`);
+      
+      const dataset = structurizeData(data);
 
-      const dataset = structurizeData(this, data);
       this.$store.dispatch('app/set', { 
         pageTitle,
         introductionText,

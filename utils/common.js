@@ -1,4 +1,5 @@
 const constants = require('./constants');
+const _ = require('underscore');
 
 export function getNestedProperty(targetJson, path) {
   return path.split('.').reduce((subJson, prop) => subJson[prop], targetJson);
@@ -25,9 +26,9 @@ export function nFormatter(num, { significantFigures } = { significantFigures: 2
   return parseFloat((num/1.0).toPrecision(significantFigures));
 }
 
-export function structurizeData(ctx, rawData) {
-  return ctx.$_.pairs(
-      ctx.$_.groupBy(rawData, 'twitter_id')
+export function structurizeData(rawData) {
+  return _.pairs(
+      _.groupBy(rawData, 'twitter_id')
     )
     .map((pairs, index) => {
       const twitterID = pairs[0];

@@ -39,7 +39,7 @@ export default {
     if (dataset === null) {
       const { data, pageTitle, introductionText, adminTwitterID } = await this.$axios.$get(`/api`);
 
-      this.dataset = structurizeData(this, data);
+      this.dataset = structurizeData(data);
       this.$store.dispatch('app/set', { 
         pageTitle,
         introductionText,

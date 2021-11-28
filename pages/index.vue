@@ -107,9 +107,18 @@ export default {
   async mounted() {
     const dataset = this.$store.getters["app/get"].dataset;
     if (dataset === null) {
-      const { data, pageTitle, introductionText, adminTwitterID } = await this.$axios.$get(`/api`);
+      let response;
+      try {
+        response = await this.$axios.$get(`/api`);
+      } catch (error) {
+        // dummy data for debugging
+        response = { data:
+            [{"id":1,"twitter_id":"elonmusk","followers_count":3196817,"date":"2021-11-12 03:54:31"},{"id":2,"twitter_id":"JeffBezos","followers_count":10824339,"date":"2021-11-12 03:54:32"}],
+            pageTitle:"Twitter Dashboard",introductionText:"This site shows the Twitter follower growth of various Twitter pages",adminTwitterID:"twitter",pageloadCount:0 };
+      }
+      const { data, pageTitle, introductionText, adminTwitterID } = response; 
 
-      this.dataset = structurizeData(this, data);
+      this.dataset = structurizeData(data);
       this.$store.dispatch('app/set', { 
         pageTitle,
         introductionText,
