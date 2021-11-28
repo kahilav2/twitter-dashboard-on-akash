@@ -1,4 +1,4 @@
-import constants from '~/utils/constants';
+const constants = require('./constants');
 
 export function getNestedProperty(targetJson, path) {
   return path.split('.').reduce((subJson, prop) => subJson[prop], targetJson);
