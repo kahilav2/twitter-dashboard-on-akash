@@ -1,3 +1,5 @@
+import constants from '~/utils/constants';
+
 export function getNestedProperty(targetJson, path) {
   return path.split('.').reduce((subJson, prop) => subJson[prop], targetJson);
 }
@@ -60,3 +62,20 @@ export function structurizeData(ctx, rawData) {
     .sort((a, b) => b.latestFollowersCount - a.latestFollowersCount )
     // .filter((subset)=> subset.dataPoints.length >= 2);
 };
+
+export function stringToColour(str) {
+  var hash = 0;
+  for (var i = 0; i < str.length; i++) {
+    hash = str.charCodeAt(i) + ((hash << 5) - hash);
+  }
+  var colour = '#';
+  for (var i = 0; i < 3; i++) {
+    var value = (hash >> (i * 8)) & 0xFF;
+    colour += ('00' + value.toString(16)).substr(-2);
+  }
+  return colour;
+}
+export function getColor(index, str) {
+  if (index < constants.plot.borderColors.length) return constants.plot.borderColors[index];
+  return stringToColour(str);
+}

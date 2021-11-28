@@ -25,7 +25,7 @@ const loop = async () => {
       row.run(twitterID, result.data.followers_count);
 
       console.log(`${twitterID} updated successfully`);
-      await sleep(5000);
+      await sleep(8000);
     }
   } catch (error) {
     console.error(error);

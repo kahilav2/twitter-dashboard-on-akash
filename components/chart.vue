@@ -1,6 +1,6 @@
 <script>
 import { Line } from 'vue-chartjs'
-import { nFormatter } from '~/utils/common';
+import { nFormatter , getColor } from '~/utils/common';
 import moment from 'moment'
 
 export default {
@@ -30,7 +30,7 @@ export default {
             label: this.dataset.twitterID,
             data: ys,
             fill: false,
-            borderColor: this.$getConst('plot.borderColors')[this.dataset.index],
+            borderColor: getColor(this.dataset.index, this.dataset.twitterID),
             backgroundColor: '#D1E6FA',
           }]
         },
