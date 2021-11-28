@@ -17,6 +17,10 @@ span {
     color: #ffffff;
     font-weight: bold;
   }
+  &.new {
+    color: #91a194;
+    font-weight: bold;
+  }
   &.low-followers-count {
     color: #bababa;
   }

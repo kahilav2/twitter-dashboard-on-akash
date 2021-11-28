@@ -35,6 +35,9 @@
       <span :class="getClass(item.latestFollowersCount)">{{ format(item.latestFollowersCount) }}</span>
     </template>
     <template v-slot:[`item.weeklyGrowth`]="{ item }">
+      <template v-if="item.timePeriod < 7">
+        <span class="new">New!</span>
+      </template>
       <span class="neutral">{{ formatWeeklyGrowth(item.weeklyGrowth) }}</span>
     </template>
     <template v-slot:[`item.weeklyGrowthPercentage`]="{ item }">
@@ -96,6 +99,7 @@ export default {
           latestFollowersCount: a.latestFollowersCount,
           weeklyGrowth: (a.growth.timePeriod >= 7) ? a.growth.absoluteGrowth : '',
           weeklyGrowthPercentage: (a.growth.timePeriod >= 7) ? a.growth.percentage : '',
+          timePeriod: a.growth.timePeriod,
         })
       ),
       options: {
