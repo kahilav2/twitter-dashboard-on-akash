@@ -41,7 +41,7 @@
       <span class="neutral">{{ formatWeeklyGrowth(item.weeklyGrowth) }}</span>
     </template>
     <template v-slot:[`item.weeklyGrowthPercentage`]="{ item }">
-      <span class="gain">{{ formatWeeklyGrowthPercentage(item.weeklyGrowthPercentage) }}</span>
+      <span :class="item.percentageSign ? 'gain' : 'loss'">{{ formatWeeklyGrowthPercentage(item.weeklyGrowthPercentage) }}</span>
     </template>
     <template v-slot:[`item.trend`]="{ item }">
       <nuxt-link :to="{ path: '/trends/' + item.twitterID } " class="link">
@@ -99,6 +99,7 @@ export default {
           latestFollowersCount: a.latestFollowersCount,
           weeklyGrowth: (a.growth.timePeriod >= 7) ? a.growth.absoluteGrowth : '',
           weeklyGrowthPercentage: (a.growth.timePeriod >= 7) ? a.growth.percentage : '',
+          percentageSign: a.growth.percentageSign,
           timePeriod: a.growth.timePeriod,
         })
       ),

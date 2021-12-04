@@ -2,11 +2,11 @@ span {
   font-size: 15px;
   
   &.gain {
-    color: #5bd85b;
+    color: #76e57c;
     font-weight: bold;
   }
   &.loss {
-    color: #d65e5e;
+    color: #da7e7c;
     font-weight: bold;
   }
   &.neutral {
@@ -18,7 +18,7 @@ span {
     font-weight: bold;
   }
   &.new {
-    color: #91a194;
+    color: #99ad9c;
     font-weight: bold;
   }
   &.low-followers-count {
