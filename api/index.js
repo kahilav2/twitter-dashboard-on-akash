@@ -26,9 +26,11 @@ app.use((err, req, res, next) => {
   res.sendStatus(err.httpStatus || 500);
 });
 
-const loop = require('./loop.js');
+if (process.env.NODE_ENV === 'production') {
+  const loop = require('./loop.js');
 
-loop();
+  loop();
+}
 
 module.exports = {
   path: '/api',

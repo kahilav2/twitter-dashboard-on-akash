@@ -1,4 +1,5 @@
 import colors from 'vuetify/es5/util/colors'
+import constants from './utils/constants';
 
 export default {
   env: {
@@ -11,7 +12,7 @@ export default {
   },
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: process.env.PAGE_TITLE,
+    title: constants.general.pageTitle,
     htmlAttrs: {
       lang: 'en'
     },

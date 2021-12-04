@@ -2,9 +2,6 @@
 /* eslint-disable no-param-reassign */
 
 const getDefaultState = () => ({
-  pageTitle: null,
-  introductionText: null,
-  adminTwitterID: null,
   dataset: null,
 });
 

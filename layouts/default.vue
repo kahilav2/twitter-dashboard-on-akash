@@ -34,7 +34,7 @@
             </v-col>
             <v-col cols="6" sm="6">
               <div class="footer-logo-container">
-                <a v-if="adminTwitterID" :href="`https://twitter.com/${adminTwitterID}`" target="blank" class="mr-3">
+                <a :href="`https://twitter.com/${ $getConst('general.adminTwitterID') }`" target="blank" class="mr-3">
                   <TwitterIcon/>
                 </a>
                 <a href="https://github.com/kahilav2/twitter-dashboard-on-akash" target="blank">
@@ -70,10 +70,7 @@ export default {
   },
   computed: {
     footerText() {
-      return this.$store.getters["app/get"].pageTitle;
-    },
-    adminTwitterID() {
-      return this.$store.getters["app/get"].adminTwitterID;
+      return this.$getConst('general.pageTitle');
     },
   }
 }

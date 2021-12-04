@@ -5,11 +5,6 @@ if [ -z "$TWITTER_KEY" ]; then
   exit 1
 fi
 
-if [ -z "$TWITTER_IDS" ]; then
-  echo "[ERR] TWITTER_IDS not defined"
-  exit 1
-fi
-
 if [ -n "$DATABASE_URL" ]; then
   wget --no-check-certificate -O ./api/database.db $DATABASE_URL 
   echo "Database retrieved"

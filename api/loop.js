@@ -1,17 +1,18 @@
 const axios = require('axios');
 const db = require('./utils/db.js');
 const { sleep } = require('../utils/common');
+const constants = require('../utils/constants');
 
 const LOOP_INTERVAL = 1000 * 60 * 60 * 24;
 
-const watchedTwitterIDs = process.env.TWITTER_IDS.split(' ');
+const watchedTwitterIDs = constants.general.twitterIDs;
 
 const TWITTER_KEY = process.env.TWITTER_KEY;
 
 const loop = async () => {
   try {
-    for (const twitterID of watchedTwitterIDs) {
-      console.log(`Updating ${twitterID}`);
+    for (const { twitterID, tags } of watchedTwitterIDs) {
+      console.log(`Updating ${twitterID} (${tags})`);
       
       const result = await axios.get(`https://api.twitter.com/1.1/users/show.json?screen_name=${twitterID}`,
         { 

@@ -10,10 +10,14 @@
             max-width="36"
             class="mr-1"
           />
-          {{ pageTitle }}
+          {{ $getConst('general.pageTitle') }}
         </v-card-title>
         <v-card-text>
-          <p v-html="introductionText"/>
+          <p>
+            This site shows the Twitter follower growth of various cryptocurrency related projects. 
+            If you find this site useful, please show your support by following us on Twitter. 
+            That ensures the continuation of this project.
+          </p>
         </v-card-text>
         <v-row class="pl-4 pr-4">
           
@@ -21,7 +25,7 @@
             cols="4"
             sm="4"
           >
-            <a v-if="adminTwitterID" :href="`https://twitter.com/${adminTwitterID}`" target="blank">
+            <a :href="`https://twitter.com/${ $getConst('general.adminTwitterID') }`" target="blank">
               <v-img 
                 src="twitter-white.png"
                 contain
@@ -93,17 +97,6 @@ export default {
       dataset: null,
     }
   },
-  computed: {
-    pageTitle() {
-      return this.$store.getters["app/get"].pageTitle ?? '';
-    },
-    introductionText() {
-      return this.$store.getters["app/get"].introductionText ?? '';
-    },
-    adminTwitterID() {
-      return this.$store.getters["app/get"].adminTwitterID;
-    },
-  },
   async mounted() {
     const dataset = this.$store.getters["app/get"].dataset;
     if (dataset === null) {
@@ -114,15 +107,12 @@ export default {
         // dummy data for debugging
         response = { data:
             [{"id":1,"twitter_id":"elonmusk","followers_count":3196817,"date":"2021-11-12 03:54:31"},{"id":2,"twitter_id":"JeffBezos","followers_count":10824339,"date":"2021-11-12 03:54:32"}],
-            pageTitle:"Twitter Dashboard",introductionText:"This site shows the Twitter follower growth of various Twitter pages",adminTwitterID:"twitter",pageloadCount:0 };
+            pageloadCount:0 };
       }
-      const { data, pageTitle, introductionText, adminTwitterID } = response; 
+      const { data } = response; 
 
       this.dataset = structurizeData(data);
       this.$store.dispatch('app/set', { 
-        pageTitle,
-        introductionText,
-        adminTwitterID,
         dataset: this.dataset,
       });
     } else {

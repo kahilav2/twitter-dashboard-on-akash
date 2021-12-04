@@ -1,6 +1,6 @@
 FROM node:14.15.0
 
-RUN git clone https://github.com/kahilav2/twitter-dashboard-on-akash.git /app
+RUN git clone -b cryptodashboard https://github.com/kahilav2/twitter-dashboard-on-akash.git /app
 
 WORKDIR /app
 

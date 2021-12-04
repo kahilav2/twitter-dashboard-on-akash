@@ -9,9 +9,6 @@ module.exports = asyncHandler(async (req, res, next) => {
 
   res.responseData = {
     data: rows,
-    pageTitle: process.env.PAGE_TITLE,
-    introductionText: process.env.INTRODUCTION_TEXT,
-    adminTwitterID: process.env.ADMIN_TWITTER_ID,
     pageloadCount,
   };
   next();

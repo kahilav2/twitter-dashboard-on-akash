@@ -37,13 +37,10 @@ export default {
   async mounted() {
     const dataset = this.$store.getters["app/get"].dataset;
     if (dataset === null) {
-      const { data, pageTitle, introductionText, adminTwitterID } = await this.$axios.$get(`/api`);
+      const { data } = await this.$axios.$get(`/api`);
 
       this.dataset = structurizeData(data);
       this.$store.dispatch('app/set', { 
-        pageTitle,
-        introductionText,
-        adminTwitterID,
         dataset: this.dataset,
       });
     } else {
