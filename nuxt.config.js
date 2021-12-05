@@ -22,7 +22,7 @@ export default {
       {
         hid: 'description',
         name: 'description',
-        content: 'Twitter Follower Dashboard',
+        content: 'Crypto Twitter Dashboard shows the growth of various crypto-related Twitter accounts.',
       },
       { name: 'format-detection', content: 'telephone=no' },
       
