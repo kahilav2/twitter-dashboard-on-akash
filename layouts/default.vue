@@ -1,7 +1,12 @@
 <template>
   <v-app dark>
     <v-main class="mb-10">
-      <v-container>
+      <v-container 
+        :class="{
+          'pl-0': $vuetify.breakpoint.xsOnly,
+          'pr-0': $vuetify.breakpoint.xsOnly,
+          'pt-8': $vuetify.breakpoint.xsOnly}"
+      >
         <Nuxt />
       </v-container>
     </v-main>
@@ -83,4 +88,5 @@ export default {
 .footer-container {
   min-height: 60px;
 }
+
 </style>

@@ -1,58 +1,87 @@
 <template>
-  <v-data-table
-    :headers="headers"
-    :items="items"
-    :options="options"
-    dense
-    hide-default-footer
-    class="elevation-1">
-    <template v-slot:[`header.trend`]="">
-      <nuxt-link :to="{ name: 'trends' } " class="link">
-        <v-img
-          lazy-src="multi-trend.png"
-          max-height="22"
-          max-width="22"
-          src="multi-trend.png"
-        />
-      </nuxt-link>
-    </template>
-    <template v-slot:[`item.twitterID`]="{ item }">
-      {{ capitalize(item.twitterID) }}
-    </template>
-    <template v-slot:[`item.externalLink`]="{ item }">
-      
-        <a :href="`http://twitter.com/${item.twitterID}`" target="blank" class="link">
-        <v-img
-          max-height="15"
-          max-width="15"
-          class="external-link"
-          :src="imageSources.externalLink"
-        />
-      </a>
-      
-    </template>
-    <template v-slot:[`item.latestFollowersCount`]="{ item }">
-      <span :class="getClass(item.latestFollowersCount)">{{ format(item.latestFollowersCount) }}</span>
-    </template>
-    <template v-slot:[`item.weeklyGrowth`]="{ item }">
-      <template v-if="item.timePeriod < 7">
-        <span class="new">New!</span>
+  <div>
+    <v-data-table
+      :headers="headers"
+      :items="items"
+      :options="options"
+      dense
+      hide-default-footer
+      class="elevation-1 d-none d-sm-flex">
+      <template v-slot:[`header.trend`]="">
+        <nuxt-link :to="{ name: 'trends' } " class="link">
+          <v-img
+            lazy-src="multi-trend.png"
+            max-height="22"
+            max-width="22"
+            src="multi-trend.png"
+          />
+        </nuxt-link>
       </template>
-      <span class="neutral">{{ formatWeeklyGrowth(item.weeklyGrowth) }}</span>
-    </template>
-    <template v-slot:[`item.weeklyGrowthPercentage`]="{ item }">
-      <span :class="item.percentageSign ? 'gain' : 'loss'">{{ formatWeeklyGrowthPercentage(item.weeklyGrowthPercentage) }}</span>
-    </template>
-    <template v-slot:[`item.trend`]="{ item }">
-      <nuxt-link :to="{ path: '/trends/' + item.twitterID } " class="link">
-        <v-img
-          max-height="20"
-          max-width="20"
-          :src="imageSources.trend"
-        />
-      </nuxt-link>
-    </template>
-  </v-data-table>
+      <template v-slot:[`item.twitterID`]="{ item }">
+        {{ capitalize(item.twitterID) }}
+      </template>
+      <template v-slot:[`item.externalLink`]="{ item }">
+        
+          <a :href="`http://twitter.com/${item.twitterID}`" target="blank" class="link">
+          <v-img
+            max-height="15"
+            max-width="15"
+            class="external-link"
+            :src="imageSources.externalLink"
+          />
+        </a>
+        
+      </template>
+      <template v-slot:[`item.latestFollowersCount`]="{ item }">
+        <span :class="getClass(item.latestFollowersCount)">{{ format(item.latestFollowersCount) }}</span>
+      </template>
+      <template v-slot:[`item.weeklyGrowth`]="{ item }">
+        <template v-if="item.timePeriod < 7">
+          <span class="new">New!</span>
+        </template>
+        <span class="neutral">{{ formatWeeklyGrowth(item.weeklyGrowth) }}</span>
+      </template>
+      <template v-slot:[`item.weeklyGrowthPercentage`]="{ item }">
+        <span :class="item.percentageSign ? 'gain' : 'loss'">{{ formatWeeklyGrowthPercentage(item.weeklyGrowthPercentage) }}</span>
+      </template>
+      <template v-slot:[`item.trend`]="{ item }">
+        <nuxt-link :to="{ path: '/trends/' + item.twitterID } " class="link">
+          <v-img
+            max-height="20"
+            max-width="20"
+            :src="imageSources.trend"
+          />
+        </nuxt-link>
+      </template>
+    </v-data-table> 
+    
+    <v-card-title class="d-flex d-sm-none">Follower Growth (7d)</v-card-title>
+    <v-data-table
+      :headers="headersMobile"
+      :items="items"
+      :options="options"
+      dense
+      hide-default-footer
+      :mobile-breakpoint="0"
+      @click:row="onClick"
+      class="elevation-1 d-flex d-sm-none pl-4 pr-4 mobile">
+      <template v-slot:[`item.twitterID`]="{ item }">
+        {{ capitalize(item.twitterID) }}
+      </template>
+      <template v-slot:[`item.latestFollowersCount`]="{ item }">
+        <span :class="getClass(item.latestFollowersCount)">{{ format(item.latestFollowersCount) }}</span>
+      </template>
+      <template v-slot:[`item.weeklyGrowth`]="{ item }">
+        <template v-if="item.timePeriod < 7">
+          <span class="new">New!</span>
+        </template>
+        <span class="neutral">{{ formatWeeklyGrowth(item.weeklyGrowth) }}</span>
+      </template>
+      <template v-slot:[`item.weeklyGrowthPercentage`]="{ item }">
+        <span :class="item.percentageSign ? 'gain' : 'loss'">{{ formatWeeklyGrowthPercentage(item.weeklyGrowthPercentage) }}</span>
+      </template>
+    </v-data-table> 
+  </div>
 </template>
 <script>
 import { nFormatter } from '~/utils/common';
@@ -69,6 +98,30 @@ export default {
         trend: require('~/assets/trend.png'),
         externalLink: require('~/assets/external-link.png'),
       },
+      headersMobile: [
+        {
+          text: '',
+          sortable: false,
+          value: 'twitterID',
+          width: "45%",
+        },
+        { 
+          text: 'Followers', 
+          value: 'latestFollowersCount',
+          width: "15%", 
+        },
+        { 
+          text: 'Growth', 
+          value: 'weeklyGrowth',
+          width: "15%",
+        },
+        { 
+          text: '%', 
+          value: 'weeklyGrowthPercentage',
+          width: "15%",
+          align: 'center',
+        }
+      ],
       headers: [
         {
           text: '',
@@ -109,6 +162,9 @@ export default {
     };
   },
   methods: {
+    onClick({ twitterID }) {
+      this.$router.push({ path: '/trends/' + twitterID })
+    },
     format(number) {
       return nFormatter(number);
     },
@@ -148,4 +204,17 @@ export default {
 ::v-deep tr {
   transition: all 0.13s ease-out;
 }
+
+.mobile {
+  ::v-deep th {
+    padding: 0 !important;
+  }
+  ::v-deep tr {
+    transition: all 0.13s ease-out;
+    td {
+      padding: 0 !important;
+    }
+  }
+}
+
 </style>
