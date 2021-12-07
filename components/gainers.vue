@@ -1,29 +1,29 @@
 <template>
-  <v-container>
-    <v-row class="mb-2">
+  <div>
+    <div class="mb-2">
       <v-chip v-for="({ growth: { absoluteGrowth, percentageSign }, twitterID }, index) in absoluteTop3" 
         :key="index" 
-        class="mr-2"
+        class="mr-2 mb-2"
         color="grey darken-3"
         @click="navigateTo(twitterID)"
       >
         {{ twitterID }} 
         <span :key="index" class="neutral ml-2">{{ percentageSign + format(absoluteGrowth) }} </span>
       </v-chip>
-    </v-row>
-    <v-row>
+    </div>
+    <div>
       <v-chip 
         v-for="({ growth: { percentage, percentageSign }, twitterID }, index) in percentageTop3" 
         :key="index" 
-        class="mr-2"
+        class="mr-2 mb-2"
         color="grey darken-3"
         @click="navigateTo(twitterID)"
       >
         {{ twitterID }} 
         <span :key="index" class="gain ml-2">{{ percentageSign + format(percentage) }}% </span> 
       </v-chip>
-    </v-row>
-  </v-container>
+    </div>
+  </div>
 </template>
 <script>
 import { nFormatter } from '~/utils/common';

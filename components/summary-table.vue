@@ -6,7 +6,7 @@
       :options="options"
       dense
       hide-default-footer
-      class="elevation-1 d-none d-sm-flex">
+      class="elevation-1 d-none d-sm-block">
       <template v-slot:[`header.trend`]="">
         <nuxt-link :to="{ name: 'trends' } " class="link">
           <v-img
@@ -64,7 +64,7 @@
       hide-default-footer
       :mobile-breakpoint="0"
       @click:row="onClick"
-      class="elevation-1 d-flex d-sm-none pl-4 pr-4 mobile">
+      class="elevation-1 d-sm-none col-xs-12 pl-4 pr-4 mobile">
       <template v-slot:[`item.twitterID`]="{ item }">
         {{ capitalize(item.twitterID) }}
       </template>
@@ -80,7 +80,7 @@
       <template v-slot:[`item.weeklyGrowthPercentage`]="{ item }">
         <span :class="item.percentageSign ? 'gain' : 'loss'">{{ formatWeeklyGrowthPercentage(item.weeklyGrowthPercentage) }}</span>
       </template>
-    </v-data-table> 
+    </v-data-table>
   </div>
 </template>
 <script>
@@ -108,17 +108,17 @@ export default {
         { 
           text: 'Followers', 
           value: 'latestFollowersCount',
-          width: "15%", 
+          width: "20%", 
         },
         { 
           text: 'Growth', 
           value: 'weeklyGrowth',
-          width: "15%",
+          width: "17.5%",
         },
         { 
           text: '%', 
           value: 'weeklyGrowthPercentage',
-          width: "15%",
+          width: "17.5%",
           align: 'center',
         }
       ],

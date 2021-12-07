@@ -2,10 +2,7 @@
   <v-app dark>
     <v-main class="mb-10">
       <v-container 
-        :class="{
-          'pl-0': $vuetify.breakpoint.xsOnly,
-          'pr-0': $vuetify.breakpoint.xsOnly,
-          'pt-8': $vuetify.breakpoint.xsOnly}"
+        :class="{}"
       >
         <Nuxt />
       </v-container>
@@ -32,12 +29,17 @@
       app
     >
       <v-container class="footer-container">
-        <v-row justify="center" align="center" id="app">
-          <v-row class="col-sm-8 col-md-6 col-12">
-            <v-col cols="6" sm="6">
+        <v-row :justify="$vuetify.breakpoint.smAndUp ? 'center' : null">
+          <v-row class="col-sm-10 col-lg-6 col-md-8 col-xs-12">
+            <v-col cols="9" sm="6" xs="6" lg="6" :class="{
+              'pl-4': true, 
+              'pr-0': true, 
+              'pt-0': $vuetify.breakpoint.xsOnly,
+              'pb-0': true,
+              }">
               <span>{{ footerText }} &copy; {{ new Date().getFullYear() }}</span>
             </v-col>
-            <v-col cols="6" sm="6">
+            <v-col cols="3" sm="6" xs="6" lg="6">
               <div class="footer-logo-container">
                 <a :href="`https://twitter.com/${ $getConst('general.adminTwitterID') }`" target="blank" class="mr-3">
                   <TwitterIcon/>
@@ -47,6 +49,7 @@
                 </a>
               </div>
             </v-col>
+            
           </v-row>
         </v-row>
       </v-container>
