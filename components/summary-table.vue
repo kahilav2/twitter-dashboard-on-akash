@@ -193,10 +193,10 @@ export default {
   text-decoration: none;
 }
 .external-link{
-  -webkit-transition: all 0.2s ease;
+  --webkit-transition: all 0.2s ease;
   transition: all 0.2s ease;
   &:hover {
-    -webkit-filter: brightness(2.3);
+    --webkit-filter: brightness(2.3);
     filter: brightness(2.3);
     
   }

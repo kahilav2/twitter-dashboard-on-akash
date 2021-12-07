@@ -29,8 +29,9 @@
               <v-img 
                 src="twitter-white.png"
                 contain
-                max-height="26"
-                max-width="26"
+                class="row-icon"
+                max-height="22"
+                max-width="22"
               />
             </a>
           </v-col>
@@ -42,8 +43,9 @@
               <v-img 
                 src="github.png"
                 contain
-                max-height="26"
-                max-width="26"
+                class="row-icon"
+                max-height="22"
+                max-width="22"
               />
             </a>
           </v-col>
@@ -55,7 +57,8 @@
               <v-img 
                 src="akash.png"
                 contain
-                max-height="32"
+                class="row-icon"
+                max-height="26"
                 max-width="106"
               />
             </a>
@@ -134,5 +137,8 @@ export default {
 .chart {
   margin-bottom: 50px;
 }
-
+.row-icon {
+  --webkit-filter: brightness(0.9);
+  filter: brightness(0.9);
+}
 </style>
