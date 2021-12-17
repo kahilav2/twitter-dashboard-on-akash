@@ -242,7 +242,48 @@ module.exports = {
       {
         twitterID: 'enjin',
         tags: ['nft'],
-      }
+      },
+      {
+        twitterID: 'kadena_io',
+        tags: ['smartContract'],
+      },
+      {
+        twitterID: 'CeloOrg',
+        tags: ['smartContract'],
+      },
+      {
+        twitterID: 'holochain',
+        tags: ['dapp'],
+      },
+      {
+        twitterID: 'Chiliz',
+        tags: ['nft'],
+      },
+      {
+        twitterID: 'MinaProtocol',
+        tags: [''],
+      },
+      {
+        twitterID: 'zilliqa',
+        tags: [''],
+      },
+      {
+        twitterID: 'telcoin_team',
+        tags: ['payment'],
+      },
+      {
+        twitterID: 'SecretNetwork',
+        tags: ['smartContract'],
+      },
+      {
+        twitterID: 'syscoin',
+        tags: ['smartContract'],
+      },
+      {
+        twitterID: 'kava_platform',
+        tags: ['defi'],
+      },
+      
     ]
   },
   plot: {
