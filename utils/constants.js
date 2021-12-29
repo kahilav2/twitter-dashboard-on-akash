@@ -283,7 +283,30 @@ module.exports = {
         twitterID: 'kava_platform',
         tags: ['defi'],
       },
-      
+      {
+        twitterID: 'amptoken',
+        tags: ['notag'],
+      },
+      {
+        twitterID: 'NEARProtocol',
+        tags: ['smartContract'],
+      },
+      {
+        twitterID: 'safemoon',
+        tags: ['meme'],
+      },
+      {
+        twitterID: 'quant_network',
+        tags: ['notag'],
+      },
+      {
+        twitterID: 'zcashfoundation',
+        tags: ['privacy'],
+      },
+      {
+        twitterID: 'Stacks',
+        tags: ['notag'],
+      },   
     ]
   },
   plot: {
