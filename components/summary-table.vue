@@ -44,6 +44,15 @@
       <template v-slot:[`item.weeklyGrowthPercentage`]="{ item }">
         <span :class="item.percentageSign ? 'gain' : 'loss'">{{ formatWeeklyGrowthPercentage(item.weeklyGrowthPercentage) }}</span>
       </template>
+      <template v-slot:[`item.monthlyGrowth`]="{ item }">
+        <template v-if="item.monthlyTimePeriod < 30">
+          <span class="new">New!</span>
+        </template>
+        <span class="neutral">{{ formatWeeklyGrowth(item.monthlyGrowth) }}</span>
+      </template>
+      <template v-slot:[`item.monthlyGrowthPercentage`]="{ item }">
+        <span :class="item.monthlyPercentageSign ? 'gain' : 'loss'">{{ formatWeeklyGrowthPercentage(item.monthlyGrowthPercentage) }}</span>
+      </template>
       <template v-slot:[`item.trend`]="{ item }">
         <nuxt-link :to="{ path: '/trends/' + item.twitterID } " class="link">
           <v-img
@@ -57,7 +66,7 @@
     
     <v-card-title class="d-flex d-sm-none">Follower Growth (7d)</v-card-title>
     <v-data-table
-      :headers="headersMobile"
+      :headers="weeklyHeadersMobile"
       :items="items"
       :options="options"
       dense
@@ -81,8 +90,36 @@
         <span :class="item.percentageSign ? 'gain' : 'loss'">{{ formatWeeklyGrowthPercentage(item.weeklyGrowthPercentage) }}</span>
       </template>
     </v-data-table>
+
+    <v-card-title class="d-flex d-sm-none">Follower Growth (30d)</v-card-title>
+    <v-data-table
+      :headers="monthlyHeadersMobile"
+      :items="items"
+      :options="options"
+      dense
+      hide-default-footer
+      :mobile-breakpoint="0"
+      @click:row="onClick"
+      class="elevation-1 d-sm-none col-xs-12 pl-4 pr-4 mobile">
+      <template v-slot:[`item.twitterID`]="{ item }">
+        {{ capitalize(item.twitterID) }}
+      </template>
+      <template v-slot:[`item.latestFollowersCount`]="{ item }">
+        <span :class="getClass(item.latestFollowersCount)">{{ format(item.latestFollowersCount) }}</span>
+      </template>
+      <template v-slot:[`item.monthlyGrowth`]="{ item }">
+        <template v-if="item.monthlyTimePeriod < 30">
+          <span class="new">New!</span>
+        </template>
+        <span class="neutral">{{ formatWeeklyGrowth(item.monthlyGrowth) }}</span>
+      </template>
+      <template v-slot:[`item.monthlyGrowthPercentage`]="{ item }">
+        <span :class="item.monthlyPercentageSign ? 'gain' : 'loss'">{{ formatWeeklyGrowthPercentage(item.monthlyGrowthPercentage) }}</span>
+      </template>
+    </v-data-table>
   </div>
 </template>
+
 <script>
 import { nFormatter } from '~/utils/common';
 export default {
@@ -98,7 +135,7 @@ export default {
         trend: require('~/assets/trend.png'),
         externalLink: require('~/assets/external-link.png'),
       },
-      headersMobile: [
+      weeklyHeadersMobile: [
         {
           text: '',
           sortable: false,
@@ -120,7 +157,31 @@ export default {
           value: 'weeklyGrowthPercentage',
           width: "17.5%",
           align: 'center',
-        }
+        },
+      ],
+      monthlyHeadersMobile: [
+        {
+          text: '',
+          sortable: false,
+          value: 'twitterID',
+          width: "45%",
+        },
+        { 
+          text: 'Followers', 
+          value: 'latestFollowersCount',
+          width: "20%", 
+        },
+        { 
+          text: 'Growth', 
+          value: 'monthlyGrowth',
+          width: "17.5%",
+        },
+        { 
+          text: '%', 
+          value: 'monthlyGrowthPercentage',
+          width: "17.5%",
+          align: 'center',
+        },
       ],
       headers: [
         {
@@ -141,8 +202,10 @@ export default {
           value: 'externalLink',
         },
         { text: 'Followers', value: 'latestFollowersCount' },
-        { text: 'Growth (/7d)', value: 'weeklyGrowth' },
-        { text: 'Growth-% (%/7d)', value: 'weeklyGrowthPercentage' },
+        { text: '7d Growth', value: 'weeklyGrowth' },
+        { text: '7d %', value: 'weeklyGrowthPercentage' },
+        { text: '30d Growth', value: 'monthlyGrowth' },
+        { text: '30d %', value: 'monthlyGrowthPercentage' },
         { text: '', value: 'trend', sortable: false, },
       ],
       items: this.dataset.map((a, index) =>
@@ -152,8 +215,12 @@ export default {
           latestFollowersCount: a.latestFollowersCount,
           weeklyGrowth: (a.growth.timePeriod >= 7) ? a.growth.absoluteGrowth : '',
           weeklyGrowthPercentage: (a.growth.timePeriod >= 7) ? a.growth.percentage : '',
+          monthlyGrowth: (a.monthlyGrowth.timePeriod >= 30) ? a.monthlyGrowth.absoluteGrowth : '',
+          monthlyGrowthPercentage: (a.monthlyGrowth.timePeriod >= 30) ? a.monthlyGrowth.percentage : '',
           percentageSign: a.growth.percentageSign,
           timePeriod: a.growth.timePeriod,
+          monthlyPercentageSign: a.monthlyGrowth.percentageSign,
+          monthlyTimePeriod: a.monthlyGrowth.timePeriod,
         })
       ),
       options: {

@@ -304,9 +304,37 @@ module.exports = {
         tags: ['privacy'],
       },
       {
-        twitterID: 'Stacks',
+        twitterID: 'gitcoin',
         tags: ['notag'],
-      },   
+      },
+      {
+        twitterID: 'DeployOnStackOS',
+        tags: ['notag'],
+      },
+      {
+        twitterID: 'TheLTONetwork',
+        tags: ['notag'],
+      },
+      {
+        twitterID: 'InjectiveLabs',
+        tags: ['notag'],
+      },
+      {
+        twitterID: 'iEx_ec',
+        tags: ['notag'],
+      },
+      {
+        twitterID: 'kusamanetwork',
+        tags: ['notag'],
+      },
+      {
+        twitterID: 'ergoplatformorg',
+        tags: ['notag'],
+      },
+      {
+        twitterID: 'aleph_im',
+        tags: ['notag'],
+      },
     ]
   },
   plot: {

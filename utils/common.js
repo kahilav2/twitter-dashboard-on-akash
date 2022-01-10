@@ -46,6 +46,16 @@ export function structurizeData(rawData) {
       const percentage = percentageRaw.toFixed(2);
       const percentageSign = (percentage >= 0) ? '+' : '';
 
+      const mTimePeriod = Math.min(30, dataPoints.length);
+      const mPercentageRaw = (dataPoints[dataPoints.length - 1].followersCount - dataPoints[dataPoints.length - mTimePeriod].followersCount) / 
+          dataPoints[dataPoints.length - mTimePeriod].followersCount * 100;
+
+      const mAbsoluteGrowth = dataPoints[dataPoints.length - 1].followersCount - 
+          dataPoints[dataPoints.length - mTimePeriod].followersCount;
+      const mPercentage = mPercentageRaw.toFixed(2);
+      const mPercentageSign = (mPercentage >= 0) ? '+' : '';
+      
+
       return { 
         index,
         twitterID, 
@@ -57,6 +67,13 @@ export function structurizeData(rawData) {
           percentageSign,
           percentageRaw,
           absoluteGrowth,
+        },
+        monthlyGrowth: {
+          timePeriod: mTimePeriod,
+          percentageRaw: mPercentageRaw,
+          absoluteGrowth: mAbsoluteGrowth,
+          percentage: mPercentage,
+          percentageSign: mPercentageSign,
         },
       };
     })

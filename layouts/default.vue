@@ -30,7 +30,7 @@
     >
       <v-container class="footer-container">
         <v-row :justify="$vuetify.breakpoint.smAndUp ? 'center' : null">
-          <v-row class="col-sm-10 col-lg-6 col-md-8 col-xs-12">
+          <v-row class="col-xs-12 col-sm-12 col-md-10 col-lg-8 col-xl-8">
             <v-col cols="9" sm="6" xs="6" lg="6" :class="{
               'pl-4': true, 
               'pr-0': true, 

@@ -1,6 +1,6 @@
 <template>
   <v-row justify="center" align="center" id="app">
-    <v-col cols="12" sm="8" md="6">
+    <v-col cols="12" sm="12" md="10" lg="8" xl="8">
       <BackArrow/>
       <v-card v-if="subset">
         <v-card-title class="headline">
@@ -12,6 +12,7 @@
           {{ subset.growth.percentageSign }}{{ subset.growth.percentage }}%
           </span> after {{ subset.growth.percentageSign ? 'gaining' : 'losing' }} <span class="neutral">{{format(subset.growth.absoluteGrowth) }}</span>
           followers in {{ subset.growth.timePeriod }} days. {{ capitalize(subset.twitterID) }} currently has <span class="neutral-white">{{ format(subset.latestFollowersCount, { significantFigures: 3 }) }}</span> followers.
+          {{ capitalize(subset.twitterID) }} is ranked <span class="neutral-white">#{{ index + 1 }}</span> on Crypto Twitter Dashboard.
         </v-card-text>
         <Chart :dataset="subset" class="chart"/>
       </v-card>
@@ -33,15 +34,19 @@ export default {
     BackArrow
     const dataset = this.$store.getters["app/get"].dataset;
     let subsetCandidate = null;
+    let index = null;
     if (dataset !== null) {
       subsetCandidate = dataset.find(a=>a.twitterID === this.$route.params.id);
       if (!subsetCandidate) {
         this.$router('/')
       }
+      index = dataset.findIndex(a=>a.twitterID === this.$route.params.id);
     }
+    
     return {
       users: {},
       subset: subsetCandidate,
+      index,
     }
   },
   created () {
@@ -64,6 +69,7 @@ export default {
         this.$router.push('/');
       }
       this.subset = subsetCandidate;
+      this.index = dataset.findIndex(a => a.twitterID === this.$route.params.id);
     },
     format(number, options) {
       return nFormatter(number, options);

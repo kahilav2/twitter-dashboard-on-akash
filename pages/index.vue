@@ -1,6 +1,6 @@
 <template>
   <v-row justify="center" align="center" id="app">
-    <v-col cols="12" sm="10" md="8" lg="6" xl="6">
+    <v-col cols="12" sm="12" md="10" lg="8" xl="8">
       <v-card class="mb-12">
         <v-card-title class="headline">
           <v-img
@@ -65,6 +65,9 @@
           </v-col>
         </v-row>
       </v-card>
+      <!--<v-card>
+        <ChartMultiplot v-if="dataset" :dataset="dataset.filter(({twitterID})=> twitterID === 'solana' || twitterID === 'Tronfoundation')" />
+      </v-card>-->
       <v-card class="mb-12">
         <v-card-title>
           Top Gainers (7d)
