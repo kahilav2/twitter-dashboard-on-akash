@@ -228,7 +228,7 @@ module.exports = {
         tags: ['payment', 'privacy'],
       },
       { 
-        twitterID: 'Tronfoundation',
+        twitterID: 'trondao',
         tags: ['smartContract'],
       },
       { 
