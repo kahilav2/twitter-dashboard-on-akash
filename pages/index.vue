@@ -76,9 +76,8 @@
           <Gainers v-if="dataset" :dataset="dataset"/>
         </v-card-text>
       </v-card>
-      <v-card class="mb-12">
-        <SummaryTable v-if="dataset" :dataset="dataset"/>
-      </v-card>
+      
+      <SummaryTable v-if="dataset" :dataset="dataset" class="mb-4"/>
     </v-col>
   </v-row>
 </template>

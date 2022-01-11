@@ -1,122 +1,128 @@
 <template>
   <div>
-    <v-data-table
-      :headers="headers"
-      :items="items"
-      :options="options"
-      dense
-      hide-default-footer
-      class="elevation-1 d-none d-sm-block">
-      <template v-slot:[`header.trend`]="">
-        <nuxt-link :to="{ name: 'trends' } " class="link">
-          <v-img
-            lazy-src="multi-trend.png"
-            max-height="22"
-            max-width="22"
-            src="multi-trend.png"
-          />
-        </nuxt-link>
-      </template>
-      <template v-slot:[`item.twitterID`]="{ item }">
-        {{ capitalize(item.twitterID) }}
-      </template>
-      <template v-slot:[`item.externalLink`]="{ item }">
-        
-          <a :href="`http://twitter.com/${item.twitterID}`" target="blank" class="link">
-          <v-img
-            max-height="15"
-            max-width="15"
-            class="external-link"
-            :src="imageSources.externalLink"
-          />
-        </a>
-        
-      </template>
-      <template v-slot:[`item.latestFollowersCount`]="{ item }">
-        <span :class="getClass(item.latestFollowersCount)">{{ format(item.latestFollowersCount) }}</span>
-      </template>
-      <template v-slot:[`item.weeklyGrowth`]="{ item }">
-        <template v-if="item.timePeriod < 7">
-          <span class="new">New!</span>
+    <v-card>
+      <v-data-table
+        :headers="headers"
+        :items="items"
+        :options="options"
+        dense
+        hide-default-footer
+        class="elevation-1 d-none d-sm-block">
+        <template v-slot:[`header.trend`]="">
+          <nuxt-link :to="{ name: 'trends' } " class="link">
+            <v-img
+              lazy-src="multi-trend.png"
+              max-height="22"
+              max-width="22"
+              src="multi-trend.png"
+            />
+          </nuxt-link>
         </template>
-        <span class="neutral">{{ formatWeeklyGrowth(item.weeklyGrowth) }}</span>
-      </template>
-      <template v-slot:[`item.weeklyGrowthPercentage`]="{ item }">
-        <span :class="item.percentageSign ? 'gain' : 'loss'">{{ formatWeeklyGrowthPercentage(item.weeklyGrowthPercentage) }}</span>
-      </template>
-      <template v-slot:[`item.monthlyGrowth`]="{ item }">
-        <template v-if="item.monthlyTimePeriod < 30">
-          <span class="new">New!</span>
+        <template v-slot:[`item.twitterID`]="{ item }">
+          {{ capitalize(item.twitterID) }}
         </template>
-        <span class="neutral">{{ formatWeeklyGrowth(item.monthlyGrowth) }}</span>
-      </template>
-      <template v-slot:[`item.monthlyGrowthPercentage`]="{ item }">
-        <span :class="item.monthlyPercentageSign ? 'gain' : 'loss'">{{ formatWeeklyGrowthPercentage(item.monthlyGrowthPercentage) }}</span>
-      </template>
-      <template v-slot:[`item.trend`]="{ item }">
-        <nuxt-link :to="{ path: '/trends/' + item.twitterID } " class="link">
-          <v-img
-            max-height="20"
-            max-width="20"
-            :src="imageSources.trend"
-          />
-        </nuxt-link>
-      </template>
-    </v-data-table> 
+        <template v-slot:[`item.externalLink`]="{ item }">
+          
+            <a :href="`http://twitter.com/${item.twitterID}`" target="blank" class="link">
+            <v-img
+              max-height="15"
+              max-width="15"
+              class="external-link"
+              :src="imageSources.externalLink"
+            />
+          </a>
+          
+        </template>
+        <template v-slot:[`item.latestFollowersCount`]="{ item }">
+          <span :class="getClass(item.latestFollowersCount)">{{ format(item.latestFollowersCount) }}</span>
+        </template>
+        <template v-slot:[`item.weeklyGrowth`]="{ item }">
+          <template v-if="item.timePeriod < 7">
+            <span class="new">New!</span>
+          </template>
+          <span class="neutral">{{ formatWeeklyGrowth(item.weeklyGrowth) }}</span>
+        </template>
+        <template v-slot:[`item.weeklyGrowthPercentage`]="{ item }">
+          <span :class="item.percentageSign ? 'gain' : 'loss'">{{ formatWeeklyGrowthPercentage(item.weeklyGrowthPercentage) }}</span>
+        </template>
+        <template v-slot:[`item.monthlyGrowth`]="{ item }">
+          <template v-if="item.monthlyTimePeriod < 30">
+            <span class="new">New!</span>
+          </template>
+          <span class="neutral">{{ formatWeeklyGrowth(item.monthlyGrowth) }}</span>
+        </template>
+        <template v-slot:[`item.monthlyGrowthPercentage`]="{ item }">
+          <span :class="item.monthlyPercentageSign ? 'gain' : 'loss'">{{ formatWeeklyGrowthPercentage(item.monthlyGrowthPercentage) }}</span>
+        </template>
+        <template v-slot:[`item.trend`]="{ item }">
+          <nuxt-link :to="{ path: '/trends/' + item.twitterID } " class="link">
+            <v-img
+              max-height="20"
+              max-width="20"
+              :src="imageSources.trend"
+            />
+          </nuxt-link>
+        </template>
+      </v-data-table> 
+    </v-card>
     
-    <v-card-title class="d-flex d-sm-none">Follower Growth (7d)</v-card-title>
-    <v-data-table
-      :headers="weeklyHeadersMobile"
-      :items="items"
-      :options="options"
-      dense
-      hide-default-footer
-      :mobile-breakpoint="0"
-      @click:row="onClick"
-      class="elevation-1 d-sm-none col-xs-12 pl-4 pr-4 mobile">
-      <template v-slot:[`item.twitterID`]="{ item }">
-        {{ capitalize(item.twitterID) }}
-      </template>
-      <template v-slot:[`item.latestFollowersCount`]="{ item }">
-        <span :class="getClass(item.latestFollowersCount)">{{ format(item.latestFollowersCount) }}</span>
-      </template>
-      <template v-slot:[`item.weeklyGrowth`]="{ item }">
-        <template v-if="item.timePeriod < 7">
-          <span class="new">New!</span>
+    <v-card>
+      <v-card-title class="d-flex d-sm-none">Follower Growth (7d)</v-card-title>
+      <v-data-table
+        :headers="weeklyHeadersMobile"
+        :items="items"
+        :options="options"
+        dense
+        hide-default-footer
+        :mobile-breakpoint="0"
+        @click:row="onClick"
+        class="elevation-1 d-sm-none col-xs-12 pl-4 pr-4 mobile mb-15">
+        <template v-slot:[`item.twitterID`]="{ item }">
+          {{ capitalize(item.twitterID) }}
         </template>
-        <span class="neutral">{{ formatWeeklyGrowth(item.weeklyGrowth) }}</span>
-      </template>
-      <template v-slot:[`item.weeklyGrowthPercentage`]="{ item }">
-        <span :class="item.percentageSign ? 'gain' : 'loss'">{{ formatWeeklyGrowthPercentage(item.weeklyGrowthPercentage) }}</span>
-      </template>
-    </v-data-table>
+        <template v-slot:[`item.latestFollowersCount`]="{ item }">
+          <span :class="getClass(item.latestFollowersCount)">{{ format(item.latestFollowersCount) }}</span>
+        </template>
+        <template v-slot:[`item.weeklyGrowth`]="{ item }">
+          <template v-if="item.timePeriod < 7">
+            <span class="new">New!</span>
+          </template>
+          <span class="neutral">{{ formatWeeklyGrowth(item.weeklyGrowth) }}</span>
+        </template>
+        <template v-slot:[`item.weeklyGrowthPercentage`]="{ item }">
+          <span :class="item.percentageSign ? 'gain' : 'loss'">{{ formatWeeklyGrowthPercentage(item.weeklyGrowthPercentage) }}</span>
+        </template>
+      </v-data-table>
+    </v-card>
 
-    <v-card-title class="d-flex d-sm-none">Follower Growth (30d)</v-card-title>
-    <v-data-table
-      :headers="monthlyHeadersMobile"
-      :items="items"
-      :options="options"
-      dense
-      hide-default-footer
-      :mobile-breakpoint="0"
-      @click:row="onClick"
-      class="elevation-1 d-sm-none col-xs-12 pl-4 pr-4 mobile">
-      <template v-slot:[`item.twitterID`]="{ item }">
-        {{ capitalize(item.twitterID) }}
-      </template>
-      <template v-slot:[`item.latestFollowersCount`]="{ item }">
-        <span :class="getClass(item.latestFollowersCount)">{{ format(item.latestFollowersCount) }}</span>
-      </template>
-      <template v-slot:[`item.monthlyGrowth`]="{ item }">
-        <template v-if="item.monthlyTimePeriod < 30">
-          <span class="new">New!</span>
+    <v-card>
+      <v-card-title class="d-flex d-sm-none">Follower Growth (30d)</v-card-title>
+      <v-data-table
+        :headers="monthlyHeadersMobile"
+        :items="items"
+        :options="options"
+        dense
+        hide-default-footer
+        :mobile-breakpoint="0"
+        @click:row="onClick"
+        class="elevation-1 d-sm-none col-xs-12 pl-4 pr-4 mobile">
+        <template v-slot:[`item.twitterID`]="{ item }">
+          {{ capitalize(item.twitterID) }}
         </template>
-        <span class="neutral">{{ formatWeeklyGrowth(item.monthlyGrowth) }}</span>
-      </template>
-      <template v-slot:[`item.monthlyGrowthPercentage`]="{ item }">
-        <span :class="item.monthlyPercentageSign ? 'gain' : 'loss'">{{ formatWeeklyGrowthPercentage(item.monthlyGrowthPercentage) }}</span>
-      </template>
-    </v-data-table>
+        <template v-slot:[`item.latestFollowersCount`]="{ item }">
+          <span :class="getClass(item.latestFollowersCount)">{{ format(item.latestFollowersCount) }}</span>
+        </template>
+        <template v-slot:[`item.monthlyGrowth`]="{ item }">
+          <template v-if="item.monthlyTimePeriod < 30">
+            <span class="new">New!</span>
+          </template>
+          <span class="neutral">{{ formatWeeklyGrowth(item.monthlyGrowth) }}</span>
+        </template>
+        <template v-slot:[`item.monthlyGrowthPercentage`]="{ item }">
+          <span :class="item.monthlyPercentageSign ? 'gain' : 'loss'">{{ formatWeeklyGrowthPercentage(item.monthlyGrowthPercentage) }}</span>
+        </template>
+      </v-data-table>
+    </v-card>
   </div>
 </template>
 
