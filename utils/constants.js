@@ -72,7 +72,7 @@ module.exports = {
         tags: ['supplyChain'],
       }, 
       {
-        twitterID: 'BinanceChain',
+        twitterID: 'BNBCHAIN',
         tags: ['smartContract'],
       },
       {

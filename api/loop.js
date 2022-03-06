@@ -26,7 +26,7 @@ const loop = async () => {
       
       const row = db.prepare('INSERT INTO data_points(twitter_id, followers_count, date) VALUES (?, ?, CURRENT_TIMESTAMP)');
       row.run(twitterID, result.data.followers_count);
-      
+
       console.log(`${twitterID} updated successfully`);
       await sleep(8000);
     }

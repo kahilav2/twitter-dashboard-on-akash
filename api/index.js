@@ -28,8 +28,20 @@ app.use((err, req, res, next) => {
 
 if (process.env.NODE_ENV === 'production') {
   const loop = require('./loop.js');
+  const { START_LOOP_AFTER_N_HOURS } = process.env;
+  console.log("START_LOOP_AFTER_N_HOURS", START_LOOP_AFTER_N_HOURS);
 
-  loop();
+  let parsedHours = parseFloat(START_LOOP_AFTER_N_HOURS);
+  console.log(parsedHours)
+  if (isNaN(parsedHours)) {
+    console.log("Coulndt parse START_LOOP_AFTER_N_HOURS, using 24 instead")
+    parsedHours = 24
+  }
+  
+  const milliSecondsUntilLoopStarts = parsedHours * 60 * 60 * 1000;  
+   
+  console.log("milliSecondsUntilLoopStarts", milliSecondsUntilLoopStarts);
+  setTimeout(loop, milliSecondsUntilLoopStarts);
 }
 
 module.exports = {
